@@ -1,0 +1,44 @@
+.scale {
+  transition: all 0.1s linear;
+}
+
+.scale:hover {
+  transform: scale(1.1);
+}
+
+.sending-message {
+  width: 510px;
+  height: 300px;
+  border-radius: 24px;
+}
+
+.sending-nickname {
+ width: 510px;
+ height: 30px;
+ border-radius: 24px;
+}
+
+/* create.html의 input placeholder */
+.sending-nickname::placeholder {
+  font-weight: bold;
+}
+
+
+.sending-message::placeholder {
+  font-weight: bold;
+}
+
+.back-index {
+  display: flex;
+  text-decoration-line: none;
+  color:black;
+  font-weight: bold;
+}
+
+/* base.html의 작성하기 태그 */
+.create-post {
+  text-decoration-line: none;
+  color:black;
+  font-weight: bold;
+}
+
