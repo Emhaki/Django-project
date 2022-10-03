@@ -24,6 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-ko(&rh0!rt%&r+6$*ldpwwex)l@uh*p$de+ybin42+jvq$+8bv"
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
+# 사용자에게 오류페이지를 보여주려면
+# DEBUG = False
+# ALLOWED_HOSTS = ["127.0.0.1"]
+
 DEBUG = True
 
 ALLOWED_HOSTS = []

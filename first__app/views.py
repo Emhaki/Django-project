@@ -79,3 +79,9 @@ def delete(request, pk):
     Post.objects.get(id=pk).delete()
 
     return redirect("posts:index")
+
+
+#  오류 페이지
+# def page_not_found(request, exception):
+
+#     return render(request, "404.html", status=404)

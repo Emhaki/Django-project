@@ -30,22 +30,26 @@
     <!-- posts의 name이 new인 곳으로 보냄 -->
     <!-- 제목은 title로 넘어가며 내용은 content로 전송 -->
     <form action="{% url 'posts:new' %}">
-      <div>메시지를 남겨주세요</div>
+      <div class="header-message">메시지를 남겨주세요!</div>
       <div>
         <input
-          class="sending-message"
+          class="sending-message text-center form-control"
           type="text"
           name="content"
           placeholder="따뜻한 메시지를 남겨주세요!"
+          id="exampleFormControlTextarea1"
+          required
         />
       </div>
       <input
-        class="sending-nickname"
+        class="sending-nickname text-center mt-2 form-control"
         type="text"
         name="title"
         placeholder="닉네임을 입력하세요(10자 이하)"
+        id="exampleFormControlInput1"
+        required
       />
-      <input type="submit" />
+      <button type="submit" class="btn button">마음 전달하기</button>
     </form>
     {% endblock %}
   </body>

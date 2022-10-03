@@ -1,3 +1,4 @@
+from cgitb import handler
 from django.urls import path
 from . import views
 
@@ -22,3 +23,5 @@ urlpatterns = [
     path("detail/<int:pk_>", views.detail, name="detail"),
     path("update/<int:pk_>", views.update, name="update"),
 ]
+
+# handler404 = "my__site.page_not_found"

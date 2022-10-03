@@ -1,37 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>크리스마스</title>
-  </head>
-  <body>
-    {% extends 'posts/base.html' %} {% block content %}
-    <div>
-      <h1>00의 방명록</h1>
-      <div class="list-group">
-        {% for post in posts %}
-        <a
-          href="{% url 'posts:detail' post.pk %}"
-          class="scale list-group-item list-group-item flex-column align-items-start shadow mb-4">
-          <div class="d-flex w-100 justify-content-center position-relative">
-            <span
-              class="position-absolute top-0 start-0 translate-middle badge border border-light rounded-pill bg-danger"
-              >{{ post.id }}번째
-            </span>
-          </div>
-          <div>
-            <h5 class="mb-1">{{ post.title }}</h5>
-          </div>
-          <div class="mb-1">{{ post.content }}</div>
-          <div><small>3 days ago</small></div>
-          {% comment %} <a href="{% url 'posts:edit' post.pk %}"> [수정] </a>
-          <a href="{% url 'posts:delete' post.pk %}"> [삭제] </a>  {% endcomment %}
-        </a>
-      
-      {% endfor %} 
-      {% endblock %}
-    </div>
-  </body>
-</html>
+{% extends 'posts/base.html' %} {% block content %} {% load static %}
+<div>
+  <h1>00의 방명록</h1>
+  <img
+    src="{% static 'css/oduck.jpg'%}"
+    alt="오리덕후"
+    style="width: 100px; height: 100px"
+  />
+  <div class="list-group">
+    {% for post in posts %}
+    <a
+      href="{% url 'posts:detail' post.pk %}"
+      class="scale list-group-item list-group-item flex-column align-items-start shadow mb-4"
+    >
+      <div class="d-flex w-100 justify-content-center position-relative">
+        <span
+          class="position-absolute top-0 start-0 translate-middle badge border border-light rounded-pill bg-danger"
+          >{{ post.id }}번째
+        </span>
+      </div>
+      <div>
+        <h5 class="mb-1">{{ post.title }}</h5>
+      </div>
+      <div class="mb-1">{{ post.content }}</div>
+      <div><small>3 days ago</small></div>
+      {% comment %} {<a href="{% url 'posts:edit' post.pk %}"> [수정] </a>
+      <a href="{% url 'posts:delete' post.pk %}"> [삭제] </a> {% endcomment %}
+    </a>
+
+    {% endfor %} {% endblock %}
+  </div>
+</div>

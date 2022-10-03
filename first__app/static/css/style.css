@@ -1,3 +1,51 @@
+
+body {
+  font-family: 'Jua', sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* input 효과 */
+input {
+  text-align: center;
+}
+
+input:focus {
+  color:black;
+}
+
+.sending-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  border-radius: 24px;
+  text-align: center;
+
+}
+
+.sending-nickname {
+ height: 30px;
+ border-radius: 24px;
+ text-align: center;
+ padding: 21px;
+}
+/*  */
+
+/* create.html의 input placeholder */
+.sending-nickname::placeholder {
+  font-weight: bold;
+  text-align: center;
+}
+
+
+
+.sending-message::placeholder {
+  font-weight: bold;
+  text-align: center;
+}
+/*  */
+
+/* 링크 꾸미기 */
 .scale {
   transition: all 0.1s linear;
 }
@@ -6,33 +54,29 @@
   transform: scale(1.1);
 }
 
-.sending-message {
-  width: 510px;
-  height: 300px;
-  border-radius: 24px;
-}
-
-.sending-nickname {
- width: 510px;
- height: 30px;
- border-radius: 24px;
-}
-
-/* create.html의 input placeholder */
-.sending-nickname::placeholder {
-  font-weight: bold;
-}
-
-
-.sending-message::placeholder {
-  font-weight: bold;
-}
 
 .back-index {
   display: flex;
   text-decoration-line: none;
   color:black;
   font-weight: bold;
+}
+/*  */
+
+/* button 꾸미기 */
+.button {
+  width:512px;
+  border: 5px;
+  border-radius: 24px;
+  font-weight: bolder;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #da2c38;
+  color: #43291f;
+}
+
+.button:hover {
+  background-color: #87c38f !important;
 }
 
 /* base.html의 작성하기 태그 */
@@ -42,3 +86,10 @@
   font-weight: bold;
 }
 
+/* header message */
+.header-message {
+  font-size: 25px;
+  font-weight: bolder;
+  text-align: left;
+  margin: 5px;
+}
