@@ -15,6 +15,22 @@ def index(request):
     return render(request, "posts/index.html", context)
 
 
+def main(request):
+
+    return render(request, "posts/main.html")
+
+
+# 꾸미는 함수
+def deco(request):
+    # 재화를 보여주는 함수
+    posts = Post.objects.all()
+
+    cnt = posts.count()
+    context = {"coin": cnt}
+
+    return render(request, "posts/decoration.html", context)
+
+
 def create(request):
 
     return render(request, "posts/create.html")

@@ -1,11 +1,7 @@
 {% extends 'posts/base.html' %} {% block content %} {% load static %}
 <div>
   <h1>00의 방명록</h1>
-  <img
-    src="{% static 'css/oduck.jpg'%}"
-    alt="오리덕후"
-    style="width: 100px; height: 100px"
-  />
+
   <div class="list-group">
     {% for post in posts %}
     <a

@@ -80,10 +80,44 @@ input:focus {
 }
 
 /* base.html의 작성하기 태그 */
+.to-index {
+  margin: 10px;
+  text-decoration-line: none;
+  color: black;
+  font-weight: bold;
+}
+
+.to-deco {
+  margin: 10px;
+  text-decoration-line: none;
+  color: black;
+  font-weight: bold;
+}
+
 .create-post {
+  margin: 10px;
   text-decoration-line: none;
   color:black;
   font-weight: bold;
+}
+/*  */
+
+.coin {
+  margin-top: 5px;
+  display: flex;
+  justify-content: right;
+}
+
+.dolf-coin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  background-color: gray;
+  border: 2px solid black;
+  color: black;
+  border-radius: 18px;
+  width: 100px;
 }
 
 /* header message */
