@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Post
+import datetime as dt
 
 # Create your views here.
 def index(request):
@@ -7,9 +8,15 @@ def index(request):
     # 1. DB에서 모든 글을 불러온다.
     posts = Post.objects.all()
 
+    x = dt.datetime.now()
+    date = x.strftime("%Y. %m. %d. %H시. %M분. %S초")
+
+    # time = Post.created_at.get()
+
     # 2. template에 보내준다.
     context = {
         "posts": posts,
+        "date": date,
     }
 
     return render(request, "posts/index.html", context)
@@ -17,15 +24,21 @@ def index(request):
 
 def main(request):
 
-    return render(request, "posts/main.html")
+    # 재화를 보여주는 함수
+    posts = Post.objects.all()
+    num = posts.count()
+    cnt = num  # + 글쓸때
+
+    context = {"coin": cnt}
+    return render(request, "posts/main.html", context)
 
 
 # 꾸미는 함수
 def deco(request):
     # 재화를 보여주는 함수
     posts = Post.objects.all()
-
-    cnt = posts.count()
+    num = posts.count()
+    cnt = num  # + 글쓸때
     context = {"coin": cnt}
 
     return render(request, "posts/decoration.html", context)
@@ -42,7 +55,10 @@ def new(request):
     content = request.GET.get("content")
 
     # 2. DB에 저장
-    Post.objects.create(title=title, content=content)
+    Post.objects.create(
+        title=title,
+        content=content,
+    )
 
     context = {
         "title": title,

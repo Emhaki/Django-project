@@ -4,6 +4,8 @@ body {
   font-family: 'Noto Sans KR', sans-serif;
 }
 
+/* date */
+
 /* input 효과 */
 input {
   text-align: center;
@@ -61,6 +63,15 @@ input:focus {
   color:black;
   font-weight: bold;
 }
+
+.into-store {
+  text-decoration-line: none;
+  color:black;
+}
+
+.into-store:hover {
+  color: black;
+}
 /*  */
 
 /* button 꾸미기 */
@@ -106,6 +117,7 @@ input:focus {
   margin-top: 5px;
   display: flex;
   justify-content: right;
+  align-items: center;
 }
 
 .dolf-coin {
@@ -115,9 +127,24 @@ input:focus {
   padding: 8px;
   background-color: gray;
   border: 2px solid black;
-  color: black;
   border-radius: 18px;
   width: 100px;
+}
+
+.store {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 15px;
+  background-color: #bc4749;
+  border: 2px solid black;
+  border-radius: 18px;
+  padding: 8px;
+  width: 100px;
+}
+
+.store-1 {
+  margin-bottom: 2px;
 }
 
 /* header message */
@@ -126,4 +153,17 @@ input:focus {
   font-weight: bolder;
   text-align: left;
   margin: 5px;
+}
+
+/* store 물품들 */
+.line {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10px;
+}
+.product {
+  border: 2px solid black;
+  border-radius: 16px;
+  width: 140px;
+  height: 140px;
 }

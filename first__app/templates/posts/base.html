@@ -25,13 +25,15 @@
   </head>
   <body>
     <!-- navbar -->
+
     <div class="container text-center mt-5" style="width: 600px">
       <div class="row border border-2 rounded-3">
+        <!-- 25일이되면 오픈 -->
         <a class="col to-index" href="{% url 'posts:index' %}">
           방명록 보러가기</a
         >
-        <a class="col to-deco" href="{% url 'posts:decoration' %}"
-          >오리덕후 꾸미기</a
+        <a class="col to-deco" href="{% url 'posts:main' %}"
+          >0의 트리를 꾸며줘!</a
         >
         <a class="col create-post" href="{% url 'posts:create' %}"
           >루돌프가 되어주기</a
