@@ -40,12 +40,15 @@
   </div>
 </div>
 <div>
-  <div>
+  <div class="m-4">
     <img
-      src="{% static 'css/oduck.jpg'%}"
-      alt="오리덕후"
-      style="width: 400px; height: 400px"
+      src="{% static 'css/christmas.png'%}"
+      alt="트리"
+      style="width: 300px; height: 300px"
     />
   </div>
 </div>
+<button class="button">
+  <a class="col create-post" href="{% url 'posts:create' %}">트리 꾸며주기</a>
+</button>
 {% endblock %}

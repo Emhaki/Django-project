@@ -23,22 +23,77 @@
     ></script>
     <title>크리스마스</title>
   </head>
-  <body>
+  <body class="d-flex justify-content-center">
     <!-- navbar -->
-
-    <div class="container text-center mt-5" style="width: 600px">
+    <div class="container text-center m-2" style="width: 600px">
       <div class="row border border-2 rounded-3">
-        <!-- 25일이되면 오픈 -->
-        <a class="col to-index" href="{% url 'posts:index' %}">
-          방명록 보러가기</a
-        >
-        <a class="col to-deco" href="{% url 'posts:main' %}"
-          >0의 트리를 꾸며줘!</a
-        >
-        <a class="col create-post" href="{% url 'posts:create' %}"
-          >루돌프가 되어주기</a
-        >
-        {% block content %} {% endblock %}
+        <div class="">
+          <!-- 25일이되면 오픈 -->
+          <a class="to-index" href="{% url 'posts:index' %}">
+            방명록 보러가기</a
+          >
+          <a class="to-deco" href="{% url 'posts:main' %}"
+            >0의 트리를 꾸며줘!</a
+          >
+          <div class="d-flex justify-content-end">
+            <button
+              class="btn"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasRight"
+              aria-controls="offcanvasRight"
+            >
+              {% comment %} 리스트 {% endcomment %}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                fill="currentColor"
+                class="bi bi-list"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+                />
+              </svg>
+            </button>
+          </div>
+          {% comment %} offcanvas 항목 {% endcomment %}
+
+          <div
+            class="offcanvas offcanvas-end"
+            tabindex="-1"
+            id="offcanvasRight"
+            aria-labelledby="offcanvasRightLabel"
+          >
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasRightLabel">
+                내 산타가 되어줘!
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="offcanvas-body">
+              <div class="d-flex mt-2">내 트리 보러가기</div>
+              <div class="d-flex mt-2">개발자에게 메시지 남기기</div>
+              <div class="d-flex mt-2">로그아웃</div>
+              <div class="d-flex mt-2" id="oduck-link">
+                <a
+                  href="https://e.kakao.com/t/little-chubby-oriduckhoo"
+                  class=""
+                  >카카오톡에서 오리덕후 만나보기</a
+                >
+              </div>
+            </div>
+          </div>
+
+          {% block content %} {% endblock %}
+        </div>
       </div>
     </div>
   </body>

@@ -8,15 +8,15 @@ def index(request):
     # 1. DB에서 모든 글을 불러온다.
     posts = Post.objects.all()
 
-    x = dt.datetime.now()
-    date = x.strftime("%Y. %m. %d. %H시. %M분. %S초")
+    # x = dt.datetime.now()
+    # date = x.strftime("%Y. %m. %d. %H시. %M분. %S초")
 
     # time = Post.created_at.get()
 
     # 2. template에 보내준다.
     context = {
         "posts": posts,
-        "date": date,
+        # "date": date,
     }
 
     return render(request, "posts/index.html", context)
@@ -33,7 +33,7 @@ def main(request):
     return render(request, "posts/main.html", context)
 
 
-# 꾸미는 함수
+# 상점
 def deco(request):
     # 재화를 보여주는 함수
     posts = Post.objects.all()
@@ -50,21 +50,10 @@ def create(request):
 
 
 def new(request):
-    # 1. parameter로 날라온 데이터를 받아서
-    title = request.GET.get("title")
-    content = request.GET.get("content")
 
-    # 2. DB에 저장
-    Post.objects.create(
-        title=title,
-        content=content,
-    )
-
-    context = {
-        "title": title,
-        "content": content,
-    }
-    return render(request, "posts/new.html", context)
+    # 굳이 new 페이지로 이동할 필요 없어보여서 redirect로 index로 이동
+    return redirect("posts:index")
+    # return render(request, "posts/new.html", context)
 
 
 def edit(request, pk_):

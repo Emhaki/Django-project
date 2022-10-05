@@ -77,3 +77,20 @@
 
 1. html단에서 required를 삭제하면 csrf 위험이 있으므로 서버단에서도 관리할 수 있도록 수정하기
 2. datetime.now() 를 활용하거나 데이터 테이블에 저장된 내용을 활용해 사용자 친화적으로 만들기
+
+# 10/5
+
+## 🔎 구현한 기술
+
+1. models.py에서 **from django.core.validators import MaxLengthValidator, MinLengthValidator** 설정, 제목과 내용에 유효성 검사 함수 추가
+2. main 페이지에 크리스마스 트리 이미지 추가(다른 이미지로 대체 예정)
+3. redirect를 이용해 사용자가 create.html에서 글을 작성하면 index페이지로 이동하게끔 설정
+4. 메인페이지에서 리스트 버튼을 누르면 옆에서 offcanvas 효과 삽입
+5. offcanvas에서 상세 정보와 내용 삽입
+
+## 👨‍💻 다음에 구현해야 하는 것
+
+1. 핸드폰, 노트북 등 다양한 viewport에 맞는 프론트 보여주게끔 설정.
+2. 최악의 상황을 고려해서 코드를 짤 것.
+3. base.html이 조금 단조로워 보여서 꾸미기
+4. offcanvas의 디자인 꾸미기
