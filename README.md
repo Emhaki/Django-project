@@ -82,6 +82,8 @@
 
 ## 🔎 구현한 기술
 
+![](./video/2022-10-05.gif)
+
 1. models.py에서 **from django.core.validators import MaxLengthValidator, MinLengthValidator** 설정, 제목과 내용에 유효성 검사 함수 추가
 2. main 페이지에 크리스마스 트리 이미지 추가(다른 이미지로 대체 예정)
 3. redirect를 이용해 사용자가 create.html에서 글을 작성하면 index페이지로 이동하게끔 설정

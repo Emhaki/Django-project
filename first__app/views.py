@@ -51,9 +51,19 @@ def create(request):
 
 def new(request):
 
+    title = request.GET.get("title")
+    content = request.GET.get("content")
+
+    # 2. DB에 저장
+    Post.objects.create(title=title, content=content)
+
+    context = {
+        "title": title,
+        "content": content,
+    }
     # 굳이 new 페이지로 이동할 필요 없어보여서 redirect로 index로 이동
-    return redirect("posts:index")
-    # return render(request, "posts/new.html", context)
+    # return redirect("posts:index")
+    return render(request, "posts/new.html", context)
 
 
 def edit(request, pk_):

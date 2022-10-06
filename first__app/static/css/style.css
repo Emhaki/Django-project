@@ -169,10 +169,31 @@ input:focus {
 }
 
 /* oduck 링크 */
-#oduck-link {
-  color: black !important;
-  border: 2px solid black !important; 
-  border-radius: 16px;
-  width: 140px;
-  height: 140px;
+
+/* .shadow {
+  position: absolute;
+  background-color: #bc4749;
+  border-radius: 18px;
+  box-shadow: 5px 5px gray;
+  
+} */
+
+.oduck-link {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration-line: none;
+  color: black;
+  border: 2px solid #87c38f ; 
+  padding: 30px;
+  border-radius: 18px;
+  width: 400px;
+  height: 60px;
+  font-weight: bolder;
+  background-color: #87c38f;
+  box-shadow: 0 -4px 4px #73ba9b inset;
+
+}
+.oduck-link:hover {
+  color:black;
 }
