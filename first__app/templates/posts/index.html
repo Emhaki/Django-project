@@ -1,6 +1,6 @@
 {% extends 'posts/base.html' %} {% block content %} {% load static %}
 <div>
-  <h1>00의 방명록</h1>
+  <h1>이명학의 방명록</h1>
 
   <div class="list-group">
     {% for post in posts %}
@@ -18,7 +18,7 @@
         <h5 class="mb-1">{{ post.title }}</h5>
       </div>
       <div class="mb-1">{{ post.content }}</div>
-      <div><small>{{ post.created_at }}</small></div>
+      <div><small>{{ post.created_at|date:"o-m-d D H:i" }}</small></div>
       {% comment %} {<a href="{% url 'posts:edit' post.pk %}"> [수정] </a>
       <a href="{% url 'posts:delete' post.pk %}"> [삭제] </a> {% endcomment %}
     </a>

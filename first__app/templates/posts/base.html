@@ -28,72 +28,86 @@
     <div class="container text-center m-2" style="width: 600px">
       <div class="row border border-2 rounded-3">
         <div class="">
-          <!-- 25일이되면 오픈 -->
-          <a class="to-index" href="{% url 'posts:index' %}">
-            방명록 보러가기</a
-          >
-          <a class="to-deco" href="{% url 'posts:main' %}"
-            >0의 트리를 꾸며줘!</a
-          >
-          <div class="d-flex justify-content-end">
-            <button
-              class="btn"
-              type="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasRight"
-              aria-controls="offcanvasRight"
-            >
-              {% comment %} 리스트 {% endcomment %}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="28"
-                height="28"
-                fill="currentColor"
-                class="bi bi-list"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
-                />
-              </svg>
-            </button>
-          </div>
-          {% comment %} offcanvas 항목 {% endcomment %}
-
-          <div
-            class="offcanvas offcanvas-end"
-            tabindex="-1"
-            id="offcanvasRight"
-            aria-labelledby="offcanvasRightLabel"
-          >
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasRightLabel">
-                내 산타가 되어줘!
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="offcanvas"
-                aria-label="Close"
-              ></button>
+          <div class="d-flex justify-content-between">
+            <div class="p-3 fs-5 fw-bolder"> 이명학 님에게
+            <div>
+              <span class="post-number">{{ post_message }}</span>개의 메시지가
+              도착했어요!
             </div>
-            <div class="offcanvas-body">
-              <div class="d-flex mt-2">내 트리 보러가기</div>
-              <div class="d-flex mt-2">개발자에게 메시지 남기기</div>
-              <div class="d-flex mt-2">로그아웃</div>
-              <div class="d-flex mt-2 justify-content-center">
-                <a
-                  href="https://e.kakao.com/t/little-chubby-oriduckhoo"
-                  class="oduck-link"
-                  >카카오톡에서 오리덕후 만나보기</a
+          </div>
+          <button
+            class="btn"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight"
+          >
+            {% comment %} 리스트 {% endcomment %}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="36"
+              height="36"
+              fill="currentColor"
+              class="bi bi-list"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+              />
+            </svg>
+          </button>
+        </div>
+        {% comment %} offcanvas 항목 {% endcomment %}
+
+        <div
+          class="offcanvas offcanvas-end"
+          tabindex="-1"
+          id="offcanvasRight"
+          aria-labelledby="offcanvasRightLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasRightLabel">
+              내 산타가 되어줘!
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <a href="{% url 'posts:main'%}">
+              <div class="d-flex mt-2 align-items-center">
+                <span class="fs-3 pb-1 mx-1">🌲</span>내 트리 보러가기
+              </div>
+            </a>
+            <a href="{% url 'posts:index' %}">
+              <div class="d-flex mt-2 align-items-center">
+                <span class="fs-3 pb-1 mx-1">📝</span>작성된 글 확인하기<span
+                  class="open-25"
+                  >25일에 오픈됩니다.</span
                 >
               </div>
+            </a>
+            <div class="d-flex mt-2 align-items-center">
+              <span class="fs-3 pb-1 mx-1">👨‍💻</span> 개발자에게 메시지 남기기
+            </div>
+            <div class="d-flex mt-2 align-items-center">
+              <span class="fs-3 pb-1 mx-1">🔓</span>로그아웃
+            </div>
+            <div class="d-flex mt-2 justify-content-center">
+              <a
+                href="https://e.kakao.com/t/little-chubby-oriduckhoo"
+                class="oduck-link"
+                >카카오톡에서 오리덕후 만나보기</a
+              >
             </div>
           </div>
-
-          {% block content %} {% endblock %}
         </div>
+
+        {% block content %} {% endblock %}
       </div>
     </div>
   </body>

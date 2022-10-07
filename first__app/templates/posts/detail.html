@@ -8,9 +8,16 @@
   </head>
   <body>
     {% extends 'posts/base.html' %} {% block content %}
-    <h1>detail.html</h1>
-    <h2>제목: {{ post.title}}</h2>
-    <p>{{ post.content }}</p>
+    <div class="d-flex">00님에게 메시지를 남겼어요!</div>
+    <div class="container create-paper">
+      <div class="create-inner-paper">
+        <div class="main-massage">{{ post.content }}</div>
+        <div class="from-massage">From. {{ post.title}}</div>
+      </div>
+      <a href="{% url 'posts:main' %}">
+        <div class="close">닫기</div>
+      </a>
+    </div>
     {% endblock %}
   </body>
 </html>

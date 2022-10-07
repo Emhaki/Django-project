@@ -3,20 +3,28 @@ from .models import Post
 import datetime as dt
 
 # Create your views here.
+def base(request):
+    # 작성된 메시지 갯수
+    posts = Post.objects.all()
+    post_message = posts.count()
+
+    context = {
+        "post_message": post_message,
+    }
+    return render(request, "posts/base.html", context)
+
+
 def index(request):
     # 모든 글 목록을 보여준다.
     # 1. DB에서 모든 글을 불러온다.
     posts = Post.objects.all()
-
-    # x = dt.datetime.now()
-    # date = x.strftime("%Y. %m. %d. %H시. %M분. %S초")
-
-    # time = Post.created_at.get()
+    # 작성된 메시지 갯수
+    post_message = posts.count()
 
     # 2. template에 보내준다.
     context = {
         "posts": posts,
-        # "date": date,
+        "post_message": post_message,
     }
 
     return render(request, "posts/index.html", context)
@@ -29,7 +37,13 @@ def main(request):
     num = posts.count()
     cnt = num  # + 글쓸때
 
-    context = {"coin": cnt}
+    # 작성된 메시지 갯수
+    post_message = posts.count()
+
+    context = {
+        "coin": cnt,
+        "post_message": post_message,
+    }
     return render(request, "posts/main.html", context)
 
 
@@ -39,14 +53,28 @@ def deco(request):
     posts = Post.objects.all()
     num = posts.count()
     cnt = num  # + 글쓸때
-    context = {"coin": cnt}
+
+    # 작성된 메시지 갯수
+    post_message = posts.count()
+
+    context = {
+        "coin": cnt,
+        "post_message": post_message,
+    }
 
     return render(request, "posts/decoration.html", context)
 
 
 def create(request):
 
-    return render(request, "posts/create.html")
+    # 작성된 메시지 갯수
+    posts = Post.objects.all()
+    post_message = posts.count()
+    context = {
+        "post_message": post_message,
+    }
+
+    return render(request, "posts/create.html", context)
 
 
 def new(request):
@@ -80,8 +108,11 @@ def detail(request, pk_):
     # get() 메소드를 사용해서 특정 pk의 데이터를 불러온다.
     # 불러온 데이터를 변수에 할당
     post = Post.objects.get(pk=pk_)
+    posts = Post.objects.all()
+    post_message = posts.count()
     context = {
         "post": post,
+        "post_message": post_message,
     }
     return render(request, "posts/detail.html", context)
 

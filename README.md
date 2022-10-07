@@ -96,3 +96,22 @@
 2. 최악의 상황을 고려해서 코드를 짤 것.
 3. base.html이 조금 단조로워 보여서 꾸미기
 4. offcanvas의 디자인 꾸미기
+
+# 10/6
+
+![](./video/2022-10-06.gif)
+![](./video/2022-10-06-2.gif)
+
+## 🔎 구현한 기술
+
+https://docs.djangoproject.com/en/4.1/ref/templates/builtins/
+
+1. admin 추가 (python manage.py createsuperuser) admin.py에 from .models import Post를 추가하고 admin.site.register(Post)를 추가 / 어드민에서 게시글을 확인 및 조작 가능
+2. 작성한 글의 시간을 Django공식 문서를 참고해서 2022-10-06 목요일 14:30 과 같이 조금 더 사용자가 보기 좋게 끔 구현
+3. 각 링크와 버튼의 클릭 범위 확대(버튼에 a태그를 걸었던게 아니라 버튼안에 a태그가 있어서 클릭이 어려웠음)
+4. base.html에 포스팅갯수를 카운트하기 위해 각 함수에 동일한 로직 삽입(화면이 이동해도 동일하게 보이게끔)
+
+## 👨‍💻 다음에 구현해야 하는 것
+
+1. 사용자의 이름이 시작점에 위치할 수 있도록(지금은 중앙정렬된 상태, div가 꼬인 것 같음)
+2. detail 페이지 꾸미기
