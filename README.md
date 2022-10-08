@@ -129,3 +129,19 @@ https://docs.djangoproject.com/en/4.1/ref/templates/builtins/
 1. 다양한 view 포트에 따른 화면 구현을 생각해볼 것
 2. csrf 토큰 추가하기
 3. if post와 get을 통해서 서버에서도 안정성있게 구현하기
+
+# 10/8
+
+## 🔎 구현한 기술
+
+1. creat.html에 csrf 토큰 추가.
+2. views.py에서도 if문을 통해 post와 get을 처리하도록 코드작성
+3. 디자인적인 요소 추가
+4. 카드 메시지가 일정 길이 이상 많아지면 ...으로 보이게끔 truncatewords:50 으로 설정
+5. detail.html에서도 내용 글이 많아지면 정해진 box보다 넘치지 않게 overflow: auto;로 처리
+
+## 👨‍💻 다음에 구현해야 하는 것
+
+1. 회원가입 기능
+2. 로그인 기능
+3. 로그인에 따른 데이터베이스 재설정

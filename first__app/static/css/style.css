@@ -63,6 +63,7 @@ input:focus {
 /* 링크 꾸미기 */
 .scale {
   transition: all 0.1s linear;
+  min-height: 500px;
 }
 
 .scale:hover {
@@ -89,14 +90,14 @@ input:focus {
 
 /* button 꾸미기 */
 .button {
-  width:512px;
   border: 5px;
   border-radius: 24px;
   font-weight: bolder;
   margin: 10px 0px 10px 0px;
   padding: 10px;
   background-color: #da2c38;
-  color: #43291f;
+  color: white;
+  box-shadow: 10px 40px 4px #73ba9b inset;
 }
 
 .button:hover {
@@ -124,7 +125,6 @@ input:focus {
   color:black;
   font-weight: bold;
 }
-/*  */
 
 .coin {
   margin-top: 5px;
@@ -235,9 +235,8 @@ input:focus {
 }
 
 .main-massage {
+  margin-top: 10px;
   white-space: pre-line;
-  margin-top: 50px;
-  height: 300px;
 }
 
 .from-massage {

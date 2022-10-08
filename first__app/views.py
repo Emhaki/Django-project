@@ -67,28 +67,49 @@ def deco(request):
 
 def create(request):
 
-    # 작성된 메시지 갯수
-    posts = Post.objects.all()
-    post_message = posts.count()
-    context = {
-        "post_message": post_message,
-    }
+    if request.method == "POST":
+        # 작성된 메시지 갯수
+        posts = Post.objects.all()
+        post_message = posts.count()
+        context = {
+            "post_message": post_message,
+        }
+    elif request.method == "GET":
+        posts = Post.objects.all()
+        post_message = posts.count()
+        context = {
+            "post_message": post_message,
+        }
 
     return render(request, "posts/create.html", context)
 
 
 def new(request):
 
-    title = request.GET.get("title")
-    content = request.GET.get("content")
+    if request.method == "POST":
 
-    # 2. DB에 저장
-    Post.objects.create(title=title, content=content)
+        title = request.POST.get("title")
+        content = request.POST.get("content")
 
-    context = {
-        "title": title,
-        "content": content,
-    }
+        # 2. DB에 저장
+        Post.objects.create(title=title, content=content)
+
+        context = {
+            "title": title,
+            "content": content,
+        }
+
+    elif request.method == "GET":
+        title = request.GET.get("title")
+        content = request.GET.get("content")
+
+        # 2. DB에 저장
+        Post.objects.create(title=title, content=content)
+
+        context = {
+            "title": title,
+            "content": content,
+        }
     # 굳이 new 페이지로 이동할 필요 없어보여서 redirect로 index로 이동
     # return redirect("posts:index")
     return render(request, "posts/new.html", context)
