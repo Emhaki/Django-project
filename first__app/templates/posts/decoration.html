@@ -1,97 +1,260 @@
 {% extends 'posts/base.html' %} {% block content %} {% load static %}
 <h1>상점</h1>
-<div class="line">
-  <div class="product">
-    <div style="margin: 0px">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="22"
-        height="22"
-        fill="currentColor"
-        class="bi bi-alexa"
-        viewBox="0 0 16 16"
-      >
-        <path
-          d="M7.996 0A7.998 7.998 0 0 0 0 8a8 8 0 0 0 6.93 7.93v-1.613a1.06 1.06 0 0 0-.717-1.008A5.602 5.602 0 0 1 2.4 7.865 5.579 5.579 0 0 1 8.054 2.4a5.599 5.599 0 0 1 5.535 5.81l-.002.046a6.116 6.116 0 0 1-.012.192l-.005.061a4.85 4.85 0 0 1-.033.284l-.01.068c-.685 4.516-6.564 7.054-6.596 7.068A7.998 7.998 0 0 0 15.992 8 7.998 7.998 0 0 0 7.996.001Z"
-        />
-      </svg>
-      개
+{% comment %} 코인갯수 {% endcomment %}
+<div>
+  <div class="d-flex justify-content-end mx-5">
+    <div class="dolf-coin">
+      <div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          fill="currentColor"
+          class="bi bi-alexa"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M7.996 0A7.998 7.998 0 0 0 0 8a8 8 0 0 0 6.93 7.93v-1.613a1.06 1.06 0 0 0-.717-1.008A5.602 5.602 0 0 1 2.4 7.865 5.579 5.579 0 0 1 8.054 2.4a5.599 5.599 0 0 1 5.535 5.81l-.002.046a6.116 6.116 0 0 1-.012.192l-.005.061a4.85 4.85 0 0 1-.033.284l-.01.068c-.685 4.516-6.564 7.054-6.596 7.068A7.998 7.998 0 0 0 15.992 8 7.998 7.998 0 0 0 7.996.001Z"
+          />
+        </svg>
+      </div>
+      {{ coin }}개
     </div>
-    <img
-      src="{% static 'css/oduck.jpg'%}"
-      alt="오리덕후"
-      style="width: 120px; height: 120px"
-    />
   </div>
-  <div class="product">
-    <img
-      src="{% static 'css/santaoduck.jpg'%}"
-      alt="오리덕후"
-      style="width: 120px; height: 120px"
-    />
+  {% comment %} {% endcomment %}
+  <div class="line">
+    <div class="product">
+      <!--코인 갯수-->
+      <div class="d-flex mx-3 mt-1">5개</div>
+      <!--코인 갯수-->
+      <img
+        src="{% static 'css/oduck.jpg'%}"
+        alt="오리덕후"
+        style="width: 120px; height: 120px"
+      />
+      <!-- 버튼 누르면 동작 -->
+      <div class="buy-position">
+        <button
+          type="button"
+          class="buy-button"
+          data-bs-toggle="modal"
+          data-bs-target="#o-duck"
+        >
+          <!--id와 data-target 일치-->
+          구매하기
+        </button>
+      </div>
+      <!-- Modal 나오는 곳 -->
+      <div
+        class="modal fade"
+        id="o-duck"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                오리덕후 기본형
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              {% comment %} 모달 안의 이미지 {% endcomment %}
+              <img
+                src="{% static 'css/oduck.jpg'%}"
+                alt="오리덕후"
+                style="width: 120px; height: 120px"
+              />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                닫기
+              </button>
+              <button type="button" class="btn btn-primary">구매하기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% comment %} 템플릿 {% endcomment %}
+    </div>
+    <div class="product">
+      <div class="d-flex mx-3 mt-1">5개</div>
+      <img
+        src="{% static 'css/santaoduck.jpg'%}"
+        alt="오리덕후"
+        style="width: 120px; height: 120px"
+      />
+      <div class="buy-position">
+        <button
+          type="button"
+          class="buy-button"
+          data-bs-toggle="modal"
+          data-bs-target="#o-duckSanta"
+        >
+          <!--id와 data-target 일치-->
+          구매하기
+        </button>
+      </div>
+      <!-- Modal 나오는 곳 -->
+      <div
+        class="modal fade"
+        id="o-duckSanta"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">산타복장</h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              {% comment %} 모달 안의 이미지 {% endcomment %}
+              <img
+                src="{% static 'css/santaoduck.jpg'%}"
+                alt="산타"
+                style="width: 120px; height: 120px"
+              />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                닫기
+              </button>
+              <button type="button" class="btn btn-primary">구매하기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% comment %} 템플릿 {% endcomment %}
+    </div>
+    <div class="product">
+      <div class="d-flex mx-3 mt-1">5개</div>
+      <img
+        src="{% static 'css/dolfoduck.jpg'%}"
+        alt="루돌프"
+        style="width: 120px; height: 120px"
+      />
+      <!-- 버튼 누르면 동작 -->
+      <div class="buy-position">
+        <button
+          type="button"
+          class="buy-button"
+          data-bs-toggle="modal"
+          data-bs-target="#o-duckDlof"
+        >
+          <!--id와 data-target 일치-->
+          구매하기
+        </button>
+      </div>
+      <!-- Modal 나오는 곳 -->
+      <div
+        class="modal fade"
+        id="o-duckDlof"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">루돌프</h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              {% comment %} 모달 안의 이미지 {% endcomment %}
+              <img
+                src="{% static 'css/dolfoduck.jpg'%}"
+                alt="오리덕후"
+                style="width: 120px; height: 120px"
+              />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                닫기
+              </button>
+              <button type="button" class="btn btn-primary">구매하기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% comment %} 템플릿 {% endcomment %}
+    </div>
   </div>
-  <div class="product">
-    <img
-      src="{% static 'css/dolfoduck.jpg'%}"
-      alt="오리덕후"
-      style="width: 120px; height: 120px"
-    />
+  <div class="line">
+    <div class="product">
+      <img
+        src="{% static 'css/oduck.jpg'%}"
+        alt="오리덕후"
+        style="width: 120px; height: 120px"
+      />
+    </div>
+    <div class="product">
+      <img
+        src="{% static 'css/santaoduck.jpg'%}"
+        alt="오리덕후"
+        style="width: 120px; height: 120px"
+      />
+    </div>
+    <div class="product">
+      <img
+        src="{% static 'css/dolfoduck.jpg'%}"
+        alt="오리덕후"
+        style="width: 120px; height: 120px"
+      />
+    </div>
   </div>
-</div>
-<div class="line">
-  <div class="product">
-    <img
-      src="{% static 'css/oduck.jpg'%}"
-      alt="오리덕후"
-      style="width: 120px; height: 120px"
-    />
+  <div class="line">
+    <div class="product">
+      <img
+        src="{% static 'css/oduck.jpg'%}"
+        alt="오리덕후"
+        style="width: 120px; height: 120px"
+      />
+    </div>
+    <div class="product">
+      <img
+        src="{% static 'css/santaoduck.jpg'%}"
+        alt="오리덕후"
+        style="width: 120px; height: 120px"
+      />
+    </div>
+    <div class="product">
+      <img
+        src="{% static 'css/dolfoduck.jpg'%}"
+        alt="오리덕후"
+        style="width: 120px; height: 120px"
+      />
+    </div>
   </div>
-  <div class="product">
-    <img
-      src="{% static 'css/santaoduck.jpg'%}"
-      alt="오리덕후"
-      style="width: 120px; height: 120px"
-    />
-  </div>
-  <div class="product">
-    <img
-      src="{% static 'css/dolfoduck.jpg'%}"
-      alt="오리덕후"
-      style="width: 120px; height: 120px"
-    />
-  </div>
-</div>
-<div class="line">
-  <div class="product">
-    <img
-      src="{% static 'css/oduck.jpg'%}"
-      alt="오리덕후"
-      style="width: 120px; height: 120px"
-    />
-  </div>
-  <div class="product">
-    <img
-      src="{% static 'css/santaoduck.jpg'%}"
-      alt="오리덕후"
-      style="width: 120px; height: 120px"
-    />
-  </div>
-  <div class="product">
-    <img
-      src="{% static 'css/dolfoduck.jpg'%}"
-      alt="오리덕후"
-      style="width: 120px; height: 120px"
-    />
-  </div>
-</div>
-<div class="line">
-  <div class="product">물품1</div>
-  <div class="product">물품2</div>
-  <div class="product">물품3</div>
-</div>
-<div class="line">
-  <div class="product">물품1</div>
-  <div class="product">물품2</div>
-  <div class="product">물품3</div>
 </div>
 {% endblock %}

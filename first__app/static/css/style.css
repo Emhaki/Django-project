@@ -63,7 +63,7 @@ input:focus {
 /* 링크 꾸미기 */
 .scale {
   transition: all 0.1s linear;
-  min-height: 500px;
+  min-height: 100px;
 }
 
 .scale:hover {
@@ -90,19 +90,31 @@ input:focus {
 
 /* button 꾸미기 */
 .button {
-  border: 5px;
-  border-radius: 24px;
+  margin: 10px 0px;
+  border: 2px solid #87c38f;
+  border-radius: 18px;
+  padding: 2px;
+  width: 512px;
+  height: 50px;
   font-weight: bolder;
-  margin: 10px 0px 10px 0px;
-  padding: 10px;
-  background-color: #da2c38;
-  color: white;
-  box-shadow: 10px 40px 4px #73ba9b inset;
+  background-color: #87c38f;
+  /* 수평, 수직, 블러, 스프레드 */
+  box-shadow: 0px -4px 4px #74aa7b inset;
 }
 
-.button:hover {
-  background-color: #87c38f !important;
+.inner-border{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  border-style:dashed;
+  border-radius: 18px;
+  border: 2px dashed black;
 }
+/* 
+.button:hover {
+  background-color: #73ba9b !important;
+} */
 
 /* base.html의 작성하기 태그 */
 .to-index {
@@ -178,9 +190,20 @@ input:focus {
   border: 2px solid black;
   border-radius: 16px;
   width: 140px;
-  height: 140px;
+  height: auto;
 }
 
+.buy-position {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0px;
+}
+
+.buy-button {
+  border-radius: 12px;
+  background-color: #e9e6dd;
+}
 /* oduck 링크 */
 
 /* .shadow {
@@ -204,7 +227,8 @@ input:focus {
   height: 60px;
   font-weight: bolder;
   background-color: #87c38f;
-  box-shadow: 0 -4px 4px #73ba9b inset;
+   /* 수평, 수직, 블러, 스프레드 */
+  box-shadow: 0px -4px 4px #73ba9b inset;
 }
 .oduck-link:hover {
   color:black;
@@ -229,7 +253,7 @@ input:focus {
   white-space: nowrap;
   margin-top: 25px;
   width: 460px;
-  height: auto;
+  height: 460px;
   background-color: white;
   border-radius: 36px;
 }
@@ -256,10 +280,10 @@ input:focus {
   border-radius: 18px;
   width: 460px;
   height: 50px;
-  margin-top: 10px;
+  margin: 10px;
   font-weight: 400;
   background-color: #43291f;
-  box-shadow: 0 -4px 4px #43291f inset;
+  box-shadow: 0 -4px 4px #573527 inset;
 }
 
 .open-25 {
