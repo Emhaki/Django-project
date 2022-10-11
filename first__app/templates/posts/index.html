@@ -26,7 +26,7 @@
       <div class="d-flex justify-content-end">
         <small>{{ post.created_at|date:"o-m-d D" }} </small>
       </div>
-      {% comment %} {<a href="{% url 'posts:edit' post.pk %}"> [수정] </a>
+      {% comment %} <a href="{% url 'posts:edit' post.pk %}"> [수정] </a>
       <a href="{% url 'posts:delete' post.pk %}"> [삭제] </a> {% endcomment %}
     </a>
 

@@ -31,17 +31,34 @@ def index(request):
 
 
 def main(request):
+    # DB에 있는 posting Data는 건드리지 않으면서
+    # 구매에 따른 재화 감소 기능
 
     # 재화를 보여주는 함수
     posts = Post.objects.all()
-    num = posts.count()
-    cnt = num  # + 글쓸때
-
     # 작성된 메시지 갯수
     post_message = posts.count()
+    # coin 포스팅 갯수
+
+    if request.method == "POST" and request.POST.get("price"):
+
+        c = Post.objects.order_by("-coin").values()[0]
+
+        for k, v in c.items():
+            if k == "id":
+                id_key = c[k]
+
+            post = Post.objects.get(id=id_key)
+            post.coin = 1
+            post.save()
+
+    # 코인값이 1인 것들(남은돈)을 카운트
+    coin = Post.objects.filter(coin=1).count()
+
+    buying = 0
 
     context = {
-        "coin": cnt,
+        "coin": coin,
         "post_message": post_message,
     }
     return render(request, "posts/main.html", context)
@@ -92,7 +109,10 @@ def new(request):
         content = request.POST.get("content")
 
         # 2. DB에 저장
-        Post.objects.create(title=title, content=content)
+        Post.objects.create(
+            title=title,
+            content=content,
+        )
 
         context = {
             "title": title,
@@ -140,17 +160,19 @@ def detail(request, pk_):
 
 def update(request, pk_):
     # update할 특정 데이터를 불러온다. -> pk_ 를 사용해서
-    post = Post.objects.get(pk=pk_)
 
-    title_ = request.GET.get("title")
-    content_ = request.GET.get("context")
+    if request.method == "POST":
+        post = Post.objects.get(pk=pk_)
 
-    # 데이터를 수정
-    post.title = title_
-    post.content = content_
+        title_ = request.GET.get("title")
+        content_ = request.GET.get("context")
 
-    # 데이터를 수정한 것을 반영(save)
-    post.save()
+        # 데이터를 수정
+        post.title = title_
+        post.content = content_
+
+        # 데이터를 수정한 것을 반영(save)
+        post.save()
 
     # 데이터의 디테일 페이지로 리다이렉트
     return redirect("posts:detail", post.pk)

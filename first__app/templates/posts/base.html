@@ -23,61 +23,63 @@
     ></script>
     <title>크리스마스</title>
   </head>
-  <body class="d-flex justify-content-center">
+  <body>
     <!-- navbar -->
-    <div class="container text-center m-2" style="width: 600px">
-      <div class="row border border-2 rounded-3">
-        <div class="">
+    <div class="container text-center m-2 d-flex justify-content-center">
+      <div class="row border border-2 rounded-3" style="width:360px;">
+        <div class="col col-xs-12">
           <div class="d-flex justify-content-between">
-            <div class="p-3 fs-5 fw-bolder"> 이명학 님에게
-            <div>
-              <span class="post-number">{{ post_message }}</span>개의 메시지가
-              도착했어요!
+            <div class="p-3 fs-5 fw-bolder">
+              이명학 님에게
+              <div>
+                <span class="post-number">{{ post_message }}</span>개의 메시지가
+                도착했어요!
+              </div>
             </div>
-          </div>
-          <button
-            class="btn"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasRight"
-            aria-controls="offcanvasRight"
-          >
-            {% comment %} 리스트 {% endcomment %}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="36"
-              height="36"
-              fill="currentColor"
-              class="bi bi-list"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
-              />
-            </svg>
-          </button>
-        </div>
-        {% comment %} offcanvas 항목 {% endcomment %}
-
-        <div
-          class="offcanvas offcanvas-end"
-          tabindex="-1"
-          id="offcanvasRight"
-          aria-labelledby="offcanvasRightLabel"
-        >
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasRightLabel">
-              내 산타가 되어줘!
-            </h5>
             <button
+              class="btn"
               type="button"
-              class="btn-close"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasRight"
+              aria-controls="offcanvasRight"
+              style="width: 60px; height: 80px;"
+            >
+              {% comment %} 리스트 {% endcomment %}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="36"
+                height="36"
+                fill="currentColor"
+                class="bi bi-list"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+                />
+              </svg>
+            </button>
           </div>
-          <div class="offcanvas-body">
+          {% comment %} offcanvas 항목 {% endcomment %}
+
+          <div
+            class="offcanvas offcanvas-end"
+            tabindex="-1"
+            id="offcanvasRight"
+            aria-labelledby="offcanvasRightLabel"
+          >
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasRightLabel">
+                내 산타가 되어줘!
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="offcanvas-body">
             <a href="{% url 'posts:main'%}">
               <div class="d-flex mt-2 align-items-center">
                 <span class="fs-3 pb-1 mx-1">🌲</span>내 트리 보러가기

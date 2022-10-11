@@ -163,3 +163,36 @@ https://docs.djangoproject.com/en/4.1/ref/templates/builtins/
 1. 상점에서 물품을 구매시 코인이 줄어들게끔 구현
 2. 물품을 구매시 구매한 상품이 메인에 보이게끔 구현
 3. 보유한 코인이 구매 가격보다 낮을시 구매되지 않게끔 구현
+
+# 10/11
+
+![](./video/2022-10-11.gif)
+
+## 🔎 구현한 기술
+
+1. 상점에서 물건 구매시 코인을 차감시키는 기능
+2. 구현 로직
+
+```py
+1. DB의 coin = 1인 데이터 값들을 count해서 화면에 보여줌
+2. 상점에서 물건을 구매(price)한 값을 {% url 'posts:main'%}로 전송.
+3. views.py의 def main(request) 함수에서
+if request.method == "POST" and request.POST.get("price") 로직을 구성.
+4. Post.objects.order_by("coin").values()[0]을 c 라는 변수에 할당
+5. for k, v in c.items():
+  if k == 'id':
+    id_key = c[k]
+를 통해서 id_key의 id값을 저장
+6. post = Post.objects.get(id=id_key)를 통해 원하는 데이터 값을 변경준비
+7. post.coin = 2 를 통해 기존에 coin = 1이었던 DB값을 2로 변경
+8. post.save()를 통해 DB저장
+
+그리고 coin = Post.objects.filter(coin=1).count()로 설정해서 현재 가지고 있는 코인을 출력
+```
+
+## 👨‍💻 구현하면서 어려웠던 점
+
+1. 머릿속으로는 간단한 기능이라고 생각했는데 이틀이라는 시간이 걸렸다. 처음에는 DB를 건드리지 않으면서 변수 저장을 통해 렌더링을 하려고 했으나, 페이지를 새로고침할 때마다 새롭게 함수가 실행되다보니 코인을 차감해도 리셋이 되었다.
+2. 때문에 DB를 건드릴 수 밖에 없다고 생각했고, ORM querySet을 통해서 변경하기 위한 과정을 거쳤다.
+3. ORM과 querySet 개념이 약하다보니, 시행착오를 많이 겪었고, 딕셔너리의 items를 통해서 변경하고자 하는 데이터의 id값을 변수에 저장했다.
+4. 지금 생각해보면 되게 간단한 로직인 것 같은데, 부족한 점이 많다보니 시간이 오래걸렸던 것 같다.

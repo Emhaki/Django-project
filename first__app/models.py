@@ -10,3 +10,4 @@ class Post(models.Model):
     title = models.CharField(max_length=10)
     content = models.TextField()
     created_at = models.DateTimeField((""), auto_now_add=True)
+    coin = models.IntegerField(default=1)
