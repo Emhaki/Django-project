@@ -206,3 +206,5 @@ if request.method == "POST" and request.POST.get("price") 로직을 구성.
 1. 회원가입 기능을 중간에 넣으려고 하다 보니 기존의 first_app의 내용들이 방대해지고 관리하기 어려워질 것 같아 회원가입과 유저들을 관리할 수 있는 accounts app을 새로 생성하고 INSTALLD_APPS에 연결
 2. my\_\_site단의 urls.py에 accounts url을 include해주고, accouts urls.py에 연결
 3. 기존에 있던 DB를 삭제하고 새롭게 migrate, accounts의 models.py를 새롭게 작성해줬기 때문에 기존에 있던 데이터를 삭제하고 새롭게 migration함
+4. AbstractUser를 통해서 username, email, password 등을 구현 / 유저별로 보여지는 화면이 달라야하기 때문에 기존의 posts로 작성했던 앱들을 accounts로 옮겨야할 것 같음
+5. 그렇다면 유저별로 DB를 다르게 설계해야하나..? 하는 생각도 들어서 공부 예정

@@ -1,4 +1,10 @@
+from django.urls import path
+from . import views
+
 # app_name: URL을 변수화 해서 사용
 app_name = "accounts"
 
-urlpatterns = []
+urlpatterns = [
+    path("signup/", views.signup, name="signup"),
+    path("<int:pk>/", views.detail, name="detail"),
+]

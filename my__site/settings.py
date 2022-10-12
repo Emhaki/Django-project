@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "first__app",
     "accounts",
     "django.contrib.admin",
-    "django.contrib.auth",
+    "django.contrib.auth",  # 관리자인증
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
@@ -133,7 +133,6 @@ STATICFILES_DIRS = (os.path.join("static"),)
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
 
 # User Model
 AUTH_USER_MODEL = "accounts.User"
