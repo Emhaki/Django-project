@@ -30,7 +30,7 @@
         <div class="col col-xs-12">
           <div class="d-flex justify-content-between">
             <div class="p-3 fs-5 fw-bolder">
-              이명학 님에게
+              {{ user }} 님에게
               <div>
                 <span class="post-number">{{ post_message }}</span>개의 메시지가
                 도착했어요!
@@ -97,13 +97,31 @@
               <span class="fs-3 pb-1 mx-1">👨‍💻</span> 개발자에게 메시지 남기기
             </div>
             <div class="d-flex mt-2 align-items-center">
-              <span class="fs-3 pb-1 mx-1">🔓</span>로그아웃
+              {% if request.user.is_authenticated %} 
+              <a href="{% url 'posts:logout' %}">
+                <span class="fs-3 pb-1 mx-1">🔓</span>로그아웃
+              </a>
+              {% else %}
+              <a href="">
+                <span class="fs-3 pb-1 mx-1">🔓</span>회원가입
+              </a>
+              <a href="{% url 'posts:login'%}">
+                <span class="fs-3 pb-1 mx-1">🔓</span>로그인
+              </a>
+              {% endif %}
             </div>
             <div class="d-flex mt-2 justify-content-center">
               <a
                 href="https://e.kakao.com/t/little-chubby-oriduckhoo"
                 class="oduck-link"
                 >카카오톡에서 오리덕후 만나보기</a
+              >
+            </div>
+            <div class="d-flex mt-2 justify-content-center">
+              <a
+                href="https://e.kakao.com/t/little-chubby-oriduckhoo"
+                class="oduck-link"
+                >공지사항</a
               >
             </div>
           </div>

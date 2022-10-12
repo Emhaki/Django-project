@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import get_user_model
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.forms import AuthenticationForm
 from .models import Post
-import datetime as dt
 
 # Create your views here.
 def base(request):
@@ -83,22 +86,26 @@ def deco(request):
 
 
 def create(request):
-
-    if request.method == "POST":
-        # 작성된 메시지 갯수
-        posts = Post.objects.all()
-        post_message = posts.count()
-        context = {
-            "post_message": post_message,
-        }
-    elif request.method == "GET":
-        posts = Post.objects.all()
-        post_message = posts.count()
-        context = {
-            "post_message": post_message,
-        }
-
-    return render(request, "posts/create.html", context)
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            # 작성된 메시지 갯수
+            posts = Post.objects.all()
+            post_message = posts.count()
+            context = {
+                "post_message": post_message,
+            }
+        elif request.method == "GET":
+            posts = Post.objects.all()
+            post_message = posts.count()
+            context = {
+                "post_message": post_message,
+            }
+        return render(request, "posts/create.html", context)
+    else:
+        return render(request, "posts/create.html")
+    # else:
+    #     # 오류일때 회원가입 홈페이지로 보여줌
+    #     return redirect("posts:login")
 
 
 def new(request):
@@ -190,3 +197,44 @@ def delete(request, pk):
 # def page_not_found(request, exception):
 
 #     return render(request, "404.html", status=404)
+
+# 로그인 페이지
+
+
+def signup(request):
+    if request.method == "POST":
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth_login(request, user)  # 회원가입하면 바로 로그인되게끔 할 수 있음
+            return redirect("posts:index")
+    else:
+        form = CustomUserCreationForm()
+    context = {"form": form}
+    return render(request, "posts/signup.html", context)
+
+
+def login(request):
+
+    if request.method == "POST":
+        # AuthenticationForm의 특징 ModelForm이 아님
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            # 세션에 저장
+            # login 함수는 request, user 객체를 인자로 받음
+            # user 객체는 form에서 인증된 유저 정보를 받을 수 있음
+            auth_login(request, form.get_user())
+            return redirect("posts:main")
+    else:
+        form = AuthenticationForm()
+
+    context = {
+        "form": form,
+    }
+
+    return render(request, "posts/login.html", context)
+
+
+def logout(request):
+    auth_logout(request)
+    return redirect("articles:main")

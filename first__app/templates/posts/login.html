@@ -1,0 +1,7 @@
+{% extends 'posts/base.html' %} {% block content %}
+<h1>로그인 페이지</h1>
+<form action="{% url 'posts:login' %}">
+  {% csrf_token %} {{ form }}
+  <input type="submit" />
+</form>
+{% endblock content %}

@@ -196,3 +196,13 @@ if request.method == "POST" and request.POST.get("price") 로직을 구성.
 2. 때문에 DB를 건드릴 수 밖에 없다고 생각했고, ORM querySet을 통해서 변경하기 위한 과정을 거쳤다.
 3. ORM과 querySet 개념이 약하다보니, 시행착오를 많이 겪었고, 딕셔너리의 items를 통해서 변경하고자 하는 데이터의 id값을 변수에 저장했다.
 4. 지금 생각해보면 되게 간단한 로직인 것 같은데, 부족한 점이 많다보니 시간이 오래걸렸던 것 같다.
+
+# 10/12
+
+![](./video/20221012.png)
+
+## 🔎 구현한 기술
+
+1. 회원가입 기능을 중간에 넣으려고 하다 보니 기존의 first_app의 내용들이 방대해지고 관리하기 어려워질 것 같아 회원가입과 유저들을 관리할 수 있는 accounts app을 새로 생성하고 INSTALLD_APPS에 연결
+2. my\_\_site단의 urls.py에 accounts url을 include해주고, accouts urls.py에 연결
+3. 기존에 있던 DB를 삭제하고 새롭게 migrate, accounts의 models.py를 새롭게 작성해줬기 때문에 기존에 있던 데이터를 삭제하고 새롭게 migration함

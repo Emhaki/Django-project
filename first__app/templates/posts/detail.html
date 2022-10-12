@@ -16,10 +16,10 @@
         <div class="main-massage" style="max-height: 600px; overflow: auto">
           {{ post.content }}
         </div>
-        <div class="from-massage">From. {{ post.title}}</div>
+        <div class="from-massage">From. {{ post.title }}</div>
       </div>
-      <a href="{% url 'posts:index' %}">
-        <div class="close">닫기</div>
+      <a href="{% url 'posts:index'%}">
+        <button type="button" class="btn">닫기</button>
       </a>
     </div>
     {% endblock %}
