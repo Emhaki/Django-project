@@ -208,3 +208,14 @@ if request.method == "POST" and request.POST.get("price") 로직을 구성.
 3. 기존에 있던 DB를 삭제하고 새롭게 migrate, accounts의 models.py를 새롭게 작성해줬기 때문에 기존에 있던 데이터를 삭제하고 새롭게 migration함
 4. AbstractUser를 통해서 username, email, password 등을 구현 / 유저별로 보여지는 화면이 달라야하기 때문에 기존의 posts로 작성했던 앱들을 accounts로 옮겨야할 것 같음
 5. 그렇다면 유저별로 DB를 다르게 설계해야하나..? 하는 생각도 들어서 공부 예정
+
+# 10/13
+
+![](./video/2022-10-13.png)
+
+## 🔎 구현한 기술
+
+1. 배경에 크리스마스 디자인 추가. position: relative를 주고 다른 그 위에 필요한 요소들에게 absolute를 부여.
+2. 현재는 width값을 고정시켜 놨지만, 사용자의 view화면에 따라 반응형을 만들어야 할 것 같음
+3. logout을 했을 시 로그인 화면으로 redirect설정.
+4. logout 시에는 html단에서 if문을 통해 회원가입과 로그인 항목이 보이게끔 설정

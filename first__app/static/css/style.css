@@ -94,8 +94,8 @@ input:focus {
   border: 2px solid #87c38f;
   border-radius: 18px;
   padding: 2px;
-  width: 512px;
-  height: 50px;
+  width: 330px;
+  height: 45px;
   font-weight: bolder;
   background-color: #87c38f;
   /* 수평, 수직, 블러, 스프레드 */
@@ -106,7 +106,7 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40px;
+  height: 35px;
   border-style:dashed;
   border-radius: 18px;
   border: 2px dashed black;
@@ -153,7 +153,8 @@ input:focus {
   background-color: gray;
   border: 2px solid black;
   border-radius: 18px;
-  width: 80px;
+  width: 60px;
+  font-size: 14px;
 }
 
 .store {
@@ -165,7 +166,8 @@ input:focus {
   border: 2px solid black;
   border-radius: 18px;
   padding: 8px;
-  width: 80px;
+  width: 60px;
+  font-size: 14px;
 }
 
 .store-1 {
@@ -192,6 +194,11 @@ input:focus {
   width: 140px;
   height: auto;
   margin: 0px 5px;
+  position: relative;
+}
+
+.need-coin {
+  position: absolute;
 }
 
 .buy-position {

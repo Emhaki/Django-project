@@ -1,5 +1,5 @@
 {% extends 'posts/base.html' %} {% block content %} {% load static %}
-<h1>상점</h1>
+<h1 style="position: relative">상점</h1>
 {% comment %} 코인갯수 {% endcomment %}
 <div>
   <div class="d-flex justify-content-end">
@@ -7,8 +7,8 @@
       <div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="22"
-          height="22"
+          width="16"
+          height="16"
           fill="currentColor"
           class="bi bi-alexa"
           viewBox="0 0 16 16"
@@ -25,7 +25,7 @@
   <div class="line">
     <div class="product">
       <!--코인 갯수-->
-      <div class="d-flex mx-3 mt-1">1개</div>
+      <div class="d-flex mx-2 mt-1 need-coin">1개</div>
       <!--코인 갯수-->
       <img
         src="{% static 'css/oduck.jpg'%}"
@@ -97,7 +97,7 @@
       {% comment %} 템플릿 {% endcomment %}
     </div>
     <div class="product">
-      <div class="d-flex mx-3 mt-1">5개</div>
+      <div class="d-flex mx-2 mt-1 need-coin">1개</div>
       <img
         src="{% static 'css/santaoduck.jpg'%}"
         alt="오리덕후"
@@ -157,7 +157,7 @@
       {% comment %} 템플릿 {% endcomment %}
     </div>
     <div class="product">
-      <div class="d-flex mx-3 mt-1">5개</div>
+      <div class="d-flex mx-2 mt-1 need-coin">1개</div>
       <img
         src="{% static 'css/dolfoduck.jpg'%}"
         alt="루돌프"

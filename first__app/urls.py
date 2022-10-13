@@ -24,7 +24,6 @@ urlpatterns = [
     path("update/<int:pk_>", views.update, name="update"),
     path("index/", views.index, name="index"),
     path("deco/", views.deco, name="decoration"),
-    path("login/", views.login, name="login"),
 ]
 
 # handler404 = "my__site.page_not_found"
