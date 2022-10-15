@@ -219,3 +219,17 @@ if request.method == "POST" and request.POST.get("price") 로직을 구성.
 2. 현재는 width값을 고정시켜 놨지만, 사용자의 view화면에 따라 반응형을 만들어야 할 것 같음
 3. logout을 했을 시 로그인 화면으로 redirect설정.
 4. logout 시에는 html단에서 if문을 통해 회원가입과 로그인 항목이 보이게끔 설정
+
+# 10/15
+
+## 🔎 구현한 기술
+
+1. @login_required를 사용
+
+```py
+from django.contrib.auth.decorators import login_required을 통해 detail, main, create, new, index, decoration페이지를 모두 로그인하지 않으면 못들어가게끔 설정
+```
+
+2. html에서 로그인해야 볼 수 있게끔 {% if request.user.is_authenticated %} {% endif %}를 사용.
+
+3. accounts의 forms.py에서 CustomUserCreationForm을 만들어서 UserCreationForm를 상속받음. Django_bootstrap5를 이용해서signup페이지에서 form으로 렌더링

@@ -1,7 +1,13 @@
-{% extends 'posts/base.html' %} {% block content %}
+{% extends 'posts/base.html' %} {% load django_bootstrap5 %} {% block content %}
 <h1>회원가입</h1>
 <form action="" method="POST">
-  {% csrf_token %} {{form}}
-  <input type="submit" />
+  {% csrf_token %} {% bootstrap_form form %}
+  <div class="d-flex justify-content-center">
+    <button type="submit" class="btn btn-outline-dark mx-3 mb-1">
+      가입하기
+    </button>
+  </div>
+  <span style="font-size: 14px; margin: 5px"> 이미 아이디가 있으신가요? </span>
+  <a href="{% url 'accounts:login' %}">로그인</a>
 </form>
 {% endblock content %}

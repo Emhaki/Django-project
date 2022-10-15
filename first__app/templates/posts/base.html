@@ -1,3 +1,4 @@
+{% load django_bootstrap5 %}
 <!DOCTYPE html>
 <html lang="ko">
   {% load static %}
@@ -26,16 +27,19 @@
   <body>
     <!-- navbar -->
     <div class="container text-center m-2 d-flex justify-content-center">
-      <div class="row border border-2 rounded-3" style="width:360px; position: relative;" >
+      <div class="row border border-2 rounded-3" style="width:360px; height:600px; overflow: auto; position: relative;" >
+        {% if request.user.is_authenticated %}
         <img
         class="rounded-3"
         src="{% static 'css/크리스마스트리.jpg'%}"
         alt="트리"
         style="width: 380px; padding:0px; z-index: -999px;"
         />
+        {% endif %}
         <div class="col" style="position: absolute">
           <div class="d-flex justify-content-between">
             <div class="p-3 fs-5 fw-bolder">
+            {% if request.user.is_authenticated %}  <!-- 로그인이 안되어있으면 안보이게 -->
               {{ user }} 님에게
               <div>
                 <span class="post-number">{{ post_message }}</span>개의 메시지가
@@ -66,6 +70,7 @@
               </svg>
             </button>
           </div>
+          {% endif %}
           {% comment %} offcanvas 항목 {% endcomment %}
 
           <div
@@ -103,12 +108,12 @@
               <span class="fs-3 pb-1 mx-1">👨‍💻</span> 개발자에게 메시지 남기기
             </div>
             <div class="d-flex mt-2 align-items-center">
-              {% if request.user.is_authenticated %} 
-              <a href="{% url 'accounts:login' %}">
+              {% if request.user.is_authenticated %}
+              <a href="{% url 'accounts:logout' %}">
                 <span class="fs-3 pb-1 mx-1">🔓</span>로그아웃
               </a>
               {% else %}
-              <a href="">
+              <a href="{% url 'accounts:signup' %}">
                 <span class="fs-3 pb-1 mx-1">🔓</span>회원가입
               </a>
               <a href="{% url 'accounts:login'%}">

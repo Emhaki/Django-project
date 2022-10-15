@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Post
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def base(request):
@@ -14,6 +15,7 @@ def base(request):
     return render(request, "posts/base.html", context)
 
 
+@login_required
 def index(request):
     # 모든 글 목록을 보여준다.
     # 1. DB에서 모든 글을 불러온다.
@@ -30,6 +32,7 @@ def index(request):
     return render(request, "posts/index.html", context)
 
 
+@login_required
 def main(request):
     # DB에 있는 posting Data는 건드리지 않으면서
     # 구매에 따른 재화 감소 기능
@@ -65,6 +68,7 @@ def main(request):
 
 
 # 상점
+@login_required
 def deco(request):
     # 재화를 보여주는 함수
     posts = Post.objects.all()
@@ -82,6 +86,7 @@ def deco(request):
     return render(request, "posts/decoration.html", context)
 
 
+@login_required
 def create(request):
     if request.user.is_authenticated:
         if request.method == "POST":
@@ -105,6 +110,7 @@ def create(request):
     #     return redirect("posts:login")
 
 
+@login_required
 def new(request):
 
     if request.method == "POST":
@@ -139,6 +145,7 @@ def new(request):
     return render(request, "posts/new.html", context)
 
 
+@login_required
 def edit(request, pk_):
     # get 메소드를 사용해서 특정 pk 데이터를 불러온다.
     post = Post.objects.get(pk=pk_)
@@ -149,6 +156,7 @@ def edit(request, pk_):
     return render(request, "posts/edit.html", context)
 
 
+@login_required
 def detail(request, pk_):
     # get() 메소드를 사용해서 특정 pk의 데이터를 불러온다.
     # 불러온 데이터를 변수에 할당
@@ -162,6 +170,7 @@ def detail(request, pk_):
     return render(request, "posts/detail.html", context)
 
 
+@login_required
 def update(request, pk_):
     # update할 특정 데이터를 불러온다. -> pk_ 를 사용해서
 
@@ -182,6 +191,7 @@ def update(request, pk_):
     return redirect("posts:detail", post.pk)
 
 
+@login_required
 def delete(request, pk):
     # pk에 해당하는 글 삭제
 

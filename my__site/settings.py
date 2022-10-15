@@ -39,6 +39,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "first__app",
     "accounts",
+    "django_bootstrap5",
     "django.contrib.admin",
     "django.contrib.auth",  # 관리자인증
     "django.contrib.contenttypes",
