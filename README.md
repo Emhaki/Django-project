@@ -238,6 +238,22 @@ from django.contrib.auth.decorators import login_required을 통해 detail, main
 
 ## 🔎 구현한 기술
 
-1. Django에 내장되어 있는 messages 를 사용 views.py에서는 로직 실행시 messages.success(request, '마음이 전달됐어요!')이 작동되게 구현, HTML에는 {% if messages %}를 사용해서 messages가 없으면 안보이게, 있으면 보이게끔 구현
+1. 물건 구매시 html(name)값을 서버에 전달해서 코인갯수만큼 반복문을 실행, ORM을 통해 코인을 오름차순으로 정렬해서 가장 작은값이 위로 올라오게 만들고, 첫번째 값을 2로 만들어 줌
 
-2. 모바일 위주로 서비스를 진행하기 위해, min-width와 max-width를 설정. min-width: 280px; max-width: 460px;로 줘서 가장작은 화면에서도 보이게끔 설정. 큰 화면에서도 width를 460px로 제한
+```py
+if request.method == "POST" and request.POST.get("price-3"):
+
+  for _ in range(3):
+      c = Post.objects.order_by("coin").values()[0]
+
+      for k, v in c.items():
+          if k == "id":
+              id_key = c[k]
+      post = Post.objects.get(id=id_key)
+      post.coin = 2
+      post.save()
+```
+
+2. Django에 내장되어 있는 messages 를 사용 views.py에서는 로직 실행시 messages.success(request, '마음이 전달됐어요!')이 작동되게 구현, HTML에는 {% if messages %}를 사용해서 messages가 없으면 안보이게, 있으면 보이게끔 구현
+
+3. 모바일 위주로 서비스를 진행하기 위해, min-width와 max-width를 설정. min-width: 280px; max-width: 460px;로 줘서 가장작은 화면에서도 보이게끔 설정. 큰 화면에서도 width를 460px로 제한
