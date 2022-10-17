@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Post
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 # Create your views here.
 def base(request):
@@ -41,9 +42,22 @@ def main(request):
     posts = Post.objects.all()
     # 작성된 메시지 갯수
     post_message = posts.count()
-    # coin 포스팅 갯수
 
-    if request.method == "POST" and request.POST.get("price"):
+    # 상점에서 3개짜리를 샀을 때
+    if request.method == "POST" and request.POST.get("price-3"):
+
+        for _ in range(3):
+            c = Post.objects.order_by("coin").values()[0]
+
+            for k, v in c.items():
+                if k == "id":
+                    id_key = c[k]
+            post = Post.objects.get(id=id_key)
+            post.coin = 2
+            post.save()
+
+    # 상점에서 1개짜리를 샀을 때
+    if request.method == "POST" and request.POST.get("price-1"):
 
         c = Post.objects.order_by("-coin").values()[0]
 
@@ -57,8 +71,6 @@ def main(request):
 
     # 코인값이 1인 것들(남은돈)을 카운트
     coin = Post.objects.filter(coin=1).count()
-
-    buying = 0
 
     context = {
         "coin": coin,
@@ -77,6 +89,8 @@ def deco(request):
 
     # 작성된 메시지 갯수
     post_message = posts.count()
+
+    # deco에서 안보이게
 
     context = {
         "coin": cnt,
@@ -112,9 +126,10 @@ def create(request):
 
 @login_required
 def new(request):
-
-    if request.method == "POST":
-
+    # new.html에서 input태그의 name을 받아옴
+    # 새로고침시 중복해서 작성되는 오류 발생
+    if request.method == "POST" and request.POST.get("title"):
+        messages.success(request, "마음이 전달됐어요!")
         title = request.POST.get("title")
         content = request.POST.get("content")
 
@@ -129,17 +144,10 @@ def new(request):
             "content": content,
         }
 
-    elif request.method == "GET":
-        title = request.GET.get("title")
-        content = request.GET.get("content")
-
-        # 2. DB에 저장
-        Post.objects.create(title=title, content=content)
-
-        context = {
-            "title": title,
-            "content": content,
-        }
+        # elif request.method == "GET":
+        #     messages.success(request, "마음이 전달됐어요!")
+        #     title = request.GET.get("title")
+        #     content = request.GET.get("content")
     # 굳이 new 페이지로 이동할 필요 없어보여서 redirect로 index로 이동
     # return redirect("posts:index")
     return render(request, "posts/new.html", context)

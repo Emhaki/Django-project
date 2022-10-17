@@ -79,13 +79,14 @@
               >
                 닫기
               </button>
+              {% comment %} 구매버튼 {% endcomment %}
               <form action="{% url 'posts:main'%}" method="POST">
                 {% csrf_token %}
                 <button
                   type="submit"
                   class="btn btn-primary"
-                  name="price"
-                  value="5"
+                  name="price-1"
+                  value="1"
                 >
                   구매하기
                 </button>
@@ -97,7 +98,7 @@
       {% comment %} 템플릿 {% endcomment %}
     </div>
     <div class="product">
-      <div class="d-flex mx-2 mt-1 need-coin">1개</div>
+      <div class="d-flex mx-2 mt-1 need-coin">3개</div>
       <img
         src="{% static 'css/santaoduck.jpg'%}"
         alt="오리덕후"
@@ -149,7 +150,18 @@
               >
                 닫기
               </button>
-              <button type="button" class="btn btn-primary">구매하기</button>
+              {% comment %} 구매버튼 {% endcomment %}
+              <form action="{% url 'posts:main'%}" method="POST">
+                {% csrf_token %}
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  name="price-3"
+                  value="3"
+                >
+                  구매하기
+                </button>
+              </form>
             </div>
           </div>
         </div>

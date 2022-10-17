@@ -233,3 +233,11 @@ from django.contrib.auth.decorators import login_required을 통해 detail, main
 2. html에서 로그인해야 볼 수 있게끔 {% if request.user.is_authenticated %} {% endif %}를 사용.
 
 3. accounts의 forms.py에서 CustomUserCreationForm을 만들어서 UserCreationForm를 상속받음. Django_bootstrap5를 이용해서signup페이지에서 form으로 렌더링
+
+# 10/17
+
+## 🔎 구현한 기술
+
+1. Django에 내장되어 있는 messages 를 사용 views.py에서는 로직 실행시 messages.success(request, '마음이 전달됐어요!')이 작동되게 구현, HTML에는 {% if messages %}를 사용해서 messages가 없으면 안보이게, 있으면 보이게끔 구현
+
+2. 모바일 위주로 서비스를 진행하기 위해, min-width와 max-width를 설정. min-width: 280px; max-width: 460px;로 줘서 가장작은 화면에서도 보이게끔 설정. 큰 화면에서도 width를 460px로 제한

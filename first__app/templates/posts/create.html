@@ -1,47 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>크리스마스</title>
-  </head>
-  <body>
-    {% extends 'posts/base.html' %} {% block content %} {% comment %} 홈으로가기
-    {% endcomment %}
-    <a class="back-index" href="{% url 'posts:main' %}">
-      < <span style="margin-left: 5px; font-size: 16px">홈으로</span></a
-    >
-    {% comment %} {% endcomment %}
+{% extends 'posts/base.html' %} {% block content %}
 
-    <h1>이명학의 방명록</h1>
-    <!-- posts의 name이 new인 곳으로 보냄 -->
-    <!-- 제목은 title로 넘어가며 내용은 content로 전송 -->
-    <form action="{% url 'posts:new' %}" method="POST">
-      {% csrf_token %}
-      <div class="header-message">메시지를 남겨주세요!</div>
-      <div>
-        <input
-          class="sending-message text-center form-control"
-          type="text"
-          name="content"
-          placeholder="따뜻한 메시지를 남겨주세요!"
-          id="exampleFormControlTextarea1"
-          required
-        />
-      </div>
-      <input
-        class="sending-nickname text-center mt-2 form-control"
-        type="text"
-        name="title"
-        placeholder="닉네임을 입력하세요(10자 이하)"
-        id="exampleFormControlInput1"
-        required
-      />
-      <button type="submit" class="button fs-5">
-        <div class="inner-border">마음 전달하기</div>
-      </button>
-    </form>
-    {% endblock %}
-  </body>
-</html>
+<a class="back-index" href="{% url 'posts:main' %}">
+  < <span style="margin-left: 5px; font-size: 16px">홈으로</span></a
+>
+
+<h1>이명학의 방명록</h1>
+<!-- posts의 name이 new인 곳으로 보냄 -->
+<!-- 제목은 title로 넘어가며 내용은 content로 전송 -->
+<form action="{% url 'posts:new' %}" method="POST">
+  {% csrf_token %}
+  <div class="header-message">메시지를 남겨주세요!</div>
+  <div>
+    <input
+      class="sending-message text-center form-control"
+      type="text"
+      name="content"
+      placeholder="따뜻한 메시지를 남겨주세요!"
+      id="exampleFormControlTextarea1"
+      required
+    />
+  </div>
+  <input
+    class="sending-nickname text-center mt-2 form-control"
+    type="text"
+    name="title"
+    placeholder="닉네임을 입력하세요(10자 이하)"
+    id="exampleFormControlInput1"
+    required
+  />
+  <button type="submit" class="button fs-5">
+    <div class="inner-border">마음 전달하기</div>
+  </button>
+</form>
+{% endblock %}

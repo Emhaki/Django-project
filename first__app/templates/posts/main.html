@@ -2,6 +2,7 @@
 
 <div class="coin">
   <a href="{% url 'posts:decoration'%}" class="into-store">
+    {% comment %}
     <div class="store">
       <div>
         <svg
@@ -20,8 +21,11 @@
       </div>
       상점
     </div>
+    {% endcomment %}
+    <img src="{% static 'css/상점1.jpg'%}" alt="상점" width="60" />
   </a>
   <div class="dolf-coin">
+    {% comment %}
     <div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +40,14 @@
         />
       </svg>
     </div>
-    {{ coin }}개
+    {% endcomment %}
+    <img
+      src="{% static 'css/코인.jpg'%}"
+      alt="코인"
+      width="30px"
+      ;
+      height="30px"
+    />{{ coin }}개
   </div>
 </div>
 <div class="mt-5">
