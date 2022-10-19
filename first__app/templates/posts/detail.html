@@ -12,10 +12,8 @@
       이명학 님에게 메시지를 남겼어요!
     </div>
     <div class="container create-paper">
-      <div class="create-inner-paper">
-        <div class="main-massage" style="max-height: 600px; overflow: auto">
-          {{ post.content }}
-        </div>
+      <div class="create-inner-paper d-flex row align-items-between">
+        <div class="main-massage">{{ post.content }}</div>
         <div class="from-massage">From. {{ post.title }}</div>
       </div>
       <a href="{% url 'posts:index'%}">

@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
+from accounts.models import User
 from .models import Post
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .forms import PostForm, CommentForm
 
 # Create your views here.
 def base(request):
@@ -35,16 +37,22 @@ def index(request):
 
 @login_required
 def main(request):
-    # DB에 있는 posting Data는 건드리지 않으면서
-    # 구매에 따른 재화 감소 기능
 
-    # 재화를 보여주는 함수
-    posts = Post.objects.all()
+    comment_form = CommentForm()
+
+    oduck = False
+    santaoduck = False
+    posts = Post.objects.order_by("pk")
     # 작성된 메시지 갯수
     post_message = posts.count()
 
-    # 상점에서 3개짜리를 샀을 때
-    if request.method == "POST" and request.POST.get("price-3"):
+    # 상점에서 3개짜리를 샀을 때, 코인이 3개보다 많을 때
+    # 3개보다 적을때 경고 알림을 주는 elif 문 삽입해야할듯
+    if (
+        Post.objects.filter(coin=1).count() >= 0
+        and request.method == "POST"
+        and request.POST.get("price-3")
+    ):
 
         for _ in range(3):
             c = Post.objects.order_by("coin").values()[0]
@@ -55,9 +63,14 @@ def main(request):
             post = Post.objects.get(id=id_key)
             post.coin = 2
             post.save()
+            santaoduck = True
 
-    # 상점에서 1개짜리를 샀을 때
-    if request.method == "POST" and request.POST.get("price-1"):
+    # 상점에서 1개짜리를 샀을 때, 코인이 1개보다 많을 때
+    if (
+        Post.objects.filter(coin=1).count() >= 1
+        and request.method == "POST"
+        and request.POST.get("price-1")
+    ):
 
         c = Post.objects.order_by("-coin").values()[0]
 
@@ -68,6 +81,7 @@ def main(request):
             post = Post.objects.get(id=id_key)
             post.coin = 1
             post.save()
+            oduck = True
 
     # 코인값이 1인 것들(남은돈)을 카운트
     coin = Post.objects.filter(coin=1).count()
@@ -75,6 +89,10 @@ def main(request):
     context = {
         "coin": coin,
         "post_message": post_message,
+        "comment_form": comment_form,
+        "oduck": oduck,
+        "posts": posts,
+        "santaoduck": santaoduck,
     }
     return render(request, "posts/main.html", context)
 
@@ -102,26 +120,15 @@ def deco(request):
 
 @login_required
 def create(request):
+
     if request.user.is_authenticated:
-        if request.method == "POST":
-            # 작성된 메시지 갯수
-            posts = Post.objects.all()
-            post_message = posts.count()
-            context = {
-                "post_message": post_message,
-            }
-        elif request.method == "GET":
-            posts = Post.objects.all()
-            post_message = posts.count()
-            context = {
-                "post_message": post_message,
-            }
+        posts = Post.objects.all()
+        post_message = posts.count()
+        context = {
+            "post_message": post_message,
+        }
         return render(request, "posts/create.html", context)
-    else:
-        return render(request, "posts/create.html")
-    # else:
-    #     # 오류일때 회원가입 홈페이지로 보여줌
-    #     return redirect("posts:login")
+        # else일때의 처리도 해줄것 !
 
 
 @login_required
@@ -129,27 +136,19 @@ def new(request):
     # new.html에서 input태그의 name을 받아옴
     # 새로고침시 중복해서 작성되는 오류 발생
     if request.method == "POST" and request.POST.get("title"):
-        messages.success(request, "마음이 전달됐어요!")
-        title = request.POST.get("title")
-        content = request.POST.get("content")
+        post_form = PostForm(request.POST, request.FILES)
+        if post_form.is_valid():
+            send = post_form.save(commit=False)
+            send.user = request.user
+            send.save()
+            messages.success(request, "마음이 전달됐어요!")
+            return redirect("posts:main")
+    else:
+        post_form = PostForm()
 
-        # 2. DB에 저장
-        Post.objects.create(
-            title=title,
-            content=content,
-        )
-
-        context = {
-            "title": title,
-            "content": content,
-        }
-
-        # elif request.method == "GET":
-        #     messages.success(request, "마음이 전달됐어요!")
-        #     title = request.GET.get("title")
-        #     content = request.GET.get("content")
-    # 굳이 new 페이지로 이동할 필요 없어보여서 redirect로 index로 이동
-    # return redirect("posts:index")
+    context = {
+        "post_form": post_form,
+    }
     return render(request, "posts/new.html", context)
 
 
@@ -206,6 +205,17 @@ def delete(request, pk):
     Post.objects.get(id=pk).delete()
 
     return redirect("posts:index")
+
+
+def comment_create(request, pk_):
+    post = Post.objects.get(pk=pk_)
+    comment_form = CommentForm(request.POST)
+    print(comment_form)
+    if comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+        comment.post = post
+        comment.save()
+    return redirect("posts:main", pk_)
 
 
 #  오류 페이지

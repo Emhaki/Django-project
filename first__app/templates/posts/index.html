@@ -30,6 +30,8 @@
       <a href="{% url 'posts:delete' post.pk %}"> [삭제] </a> {% endcomment %}
     </a>
 
-    {% endfor %} {% endblock %}
+    {% endfor %} {% endblock %} {% for comment in comments %}
+    <p>{{ comment.content }}</p>
+    {% endfor %}
   </div>
 </div>

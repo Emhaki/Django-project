@@ -257,3 +257,27 @@ if request.method == "POST" and request.POST.get("price-3"):
 2. Django에 내장되어 있는 messages 를 사용 views.py에서는 로직 실행시 messages.success(request, '마음이 전달됐어요!')이 작동되게 구현, HTML에는 {% if messages %}를 사용해서 messages가 없으면 안보이게, 있으면 보이게끔 구현
 
 3. 모바일 위주로 서비스를 진행하기 위해, min-width와 max-width를 설정. min-width: 280px; max-width: 460px;로 줘서 가장작은 화면에서도 보이게끔 설정. 큰 화면에서도 width를 460px로 제한
+
+# 10/19
+
+## 🔎 구현한 기술
+
+1. 기존의 model을 재정의함. Post 클래스에 user에 ForeignKey를 넣고, Comment 클래스에도 ForeignKey를 추가. 기존의 Post.objects.all().count()를 했었는데, 이러한 방식으로는 유저 각각의 게시물을 카운트 할 수 없다는 것을 깨달음. user id에 따른 화면렌더링과 카운트가 필요함을 깨달음
+
+```py
+class Post(models.Model):
+    title = models.CharField(max_length=20)
+    content = models.TextField()
+    created_at = models.DateTimeField((""), auto_now_add=True)
+    coin = models.IntegerField(default=1)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+class Comment(models.Model):
+    title = models.CharField(max_length=20)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    coin = models.IntegerField(default=1)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+```
+
+2. 굳이 new.html에서 작성내역을 보여줄 필요가 없을 것 같아서 과감하게 코드를 삭제. views.py에서도 create -> new로 넘어가는데 create부분의 코드를 간소화 시킴
