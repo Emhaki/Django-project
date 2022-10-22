@@ -1,13 +1,19 @@
-{% extends 'posts/base.html' %} {% block content %}
+{% extends 'posts/base.html' %} {% load django_bootstrap5 %} {% block content %}
 
 <a class="back-index" href="{% url 'posts:main' %}">
   < <span style="margin-left: 5px; font-size: 16px">홈으로</span></a
 >
 
 <h1>이명학의 방명록</h1>
+
 <!-- posts의 name이 new인 곳으로 보냄 -->
 <!-- 제목은 title로 넘어가며 내용은 content로 전송 -->
-<form action="{% url 'posts:new' %}" method="POST">
+<form action="{% url 'posts:new'%}" method="POST">
+  {% csrf_token %} {% bootstrap_form comment_form layout='inline'%}
+  <input type="submit" />
+</form>
+
+<form action="{% url 'posts:new'%}" method="POST">
   {% csrf_token %}
   <div class="header-message">메시지를 남겨주세요!</div>
   <div>

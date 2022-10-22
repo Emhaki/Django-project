@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from accounts.models import User
-from .models import Post
+from .models import Post, Comment
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import PostForm, CommentForm
@@ -9,11 +9,11 @@ from .forms import PostForm, CommentForm
 # Create your views here.
 def base(request):
     # 작성된 메시지 갯수
-    posts = Post.objects.all()
-    post_message = posts.count()
+    comment = Comment.objects.all()
+    comment_message = comment.count()
 
     context = {
-        "post_message": post_message,
+        "comment_message": comment_message,
     }
     return render(request, "posts/base.html", context)
 
@@ -120,34 +120,51 @@ def deco(request):
 
 @login_required
 def create(request):
-
+    # # 나중에 아래코드 분석해보기
+    # post = get_object_or_404(Post, pk=pk)
+    # comment_form = CommentForm()
+    # context = {
+    #     "post": post,
+    #     "comment_form": comment_form,
+    # }
+    # return render(request, "posts/create.html", context)
     if request.user.is_authenticated:
         posts = Post.objects.all()
-        post_message = posts.count()
+        comment = Comment.objects.all()
+        comment_message = comment.count()
+        comment_form = CommentForm()
         context = {
-            "post_message": post_message,
+            "posts": posts,
+            "comment_message": comment_message,
+            "comment_form": comment_form,
         }
         return render(request, "posts/create.html", context)
-        # else일때의 처리도 해줄것 !
+    # else일때의 처리도 해줄것 !
 
 
 @login_required
 def new(request):
     # new.html에서 input태그의 name을 받아옴
     # 새로고침시 중복해서 작성되는 오류 발생
-    if request.method == "POST" and request.POST.get("title"):
-        post_form = PostForm(request.POST, request.FILES)
-        if post_form.is_valid():
-            send = post_form.save(commit=False)
-            send.user = request.user
-            send.save()
+    if request.method == "POST":
+        print("여기까지는 와")
+        comment_form = CommentForm(request.POST, request.FILES)
+        if comment_form.is_valid():
+            post = comment_form.save(commit=False)
+            # post 객체에 user_id가 포함된 이용자의 user 정보를 넣는다.
+            # post.user = request.user
+            print("여기까지는 와")
+            # DB에 반영
+            post.save()
             messages.success(request, "마음이 전달됐어요!")
-            return redirect("posts:main")
+            return redirect(
+                "posts:main",
+            )
     else:
-        post_form = PostForm()
+        comment_form = CommentForm()
 
     context = {
-        "post_form": post_form,
+        "comment_form": comment_form,
     }
     return render(request, "posts/new.html", context)
 
@@ -207,15 +224,20 @@ def delete(request, pk):
     return redirect("posts:index")
 
 
-def comment_create(request, pk_):
-    post = Post.objects.get(pk=pk_)
-    comment_form = CommentForm(request.POST)
-    print(comment_form)
-    if comment_form.is_valid():
-        comment = comment_form.save(commit=False)
-        comment.post = post
-        comment.save()
-    return redirect("posts:main", pk_)
+@login_required
+def comment_create(request, pk):
+    if request.user.is_authenticated:
+        post = get_object_or_404(Post, pk=pk)
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.user = request.user
+            comment.post = post
+            comment.save()
+        return redirect("posts:main", post.pk)
+    else:
+        messages.warning(request, "메세지를 보내기 위해서는 로그인이 필요합니다.")
+        return redirect("accounts:login")
 
 
 #  오류 페이지

@@ -24,7 +24,7 @@ urlpatterns = [
     path("update/<int:pk_>", views.update, name="update"),
     path("index/", views.index, name="index"),
     path("deco/", views.deco, name="decoration"),
-    path("<int:pk_>/comments/", views.comment_create, name="comment_create"),
+    path("create/comments/<int:pk>/", views.comment_create, name="comment_create"),
 ]
 
 # handler404 = "my__site.page_not_found"
