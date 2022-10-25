@@ -40,7 +40,7 @@
           <div class="d-flex justify-content-between">
             <div class="p-3 fs-5 fw-bolder">
             {% if request.user.is_authenticated %}  <!-- 로그인이 안되어있으면 안보이게 -->
-              {{ user }} 님에게
+              {{ user.username }} 님에게
               <div>
                 <span class="post-number">{{ comment_message }}</span>개의 메시지가
                 도착했어요!

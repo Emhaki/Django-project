@@ -8,12 +8,12 @@
 
 <!-- posts의 name이 new인 곳으로 보냄 -->
 <!-- 제목은 title로 넘어가며 내용은 content로 전송 -->
-<form action="{% url 'posts:new'%}" method="POST">
+<form action="{% url 'posts:comment_create' user.pk %}" method="POST">
   {% csrf_token %} {% bootstrap_form comment_form layout='inline'%}
   <input type="submit" />
 </form>
 
-<form action="{% url 'posts:new'%}" method="POST">
+<form action="{% url 'posts:comment_create' user.pk %}" method="POST">
   {% csrf_token %}
   <div class="header-message">메시지를 남겨주세요!</div>
   <div>

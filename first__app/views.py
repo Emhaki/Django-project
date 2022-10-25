@@ -1,10 +1,10 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.forms import AuthenticationForm
-from accounts.models import User
-from .models import Post, Comment
+from django.contrib.auth import get_user_model
+from .models import People, Comment
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import PostForm, CommentForm
+from .forms import PeopleForm, CommentForm
 
 # Create your views here.
 def base(request):
@@ -22,9 +22,10 @@ def base(request):
 def index(request):
     # 모든 글 목록을 보여준다.
     # 1. DB에서 모든 글을 불러온다.
-    posts = Post.objects.all()
+    posts = Comment.objects.all()
     # 작성된 메시지 갯수
     post_message = posts.count()
+    
 
     # 2. template에 보내준다.
     context = {
@@ -42,9 +43,9 @@ def main(request):
 
     oduck = False
     santaoduck = False
-    posts = Post.objects.order_by("pk")
+    comment = Comment.objects.order_by("pk")
     # 작성된 메시지 갯수
-    post_message = posts.count()
+    comment_message = comment.count()
 
     # 상점에서 3개짜리를 샀을 때, 코인이 3개보다 많을 때
     # 3개보다 적을때 경고 알림을 주는 elif 문 삽입해야할듯
@@ -84,14 +85,13 @@ def main(request):
             oduck = True
 
     # 코인값이 1인 것들(남은돈)을 카운트
-    coin = Post.objects.filter(coin=1).count()
+    coin = Comment.objects.filter(coin=1).count()
 
     context = {
         "coin": coin,
-        "post_message": post_message,
+        "comment_message": comment_message,
         "comment_form": comment_form,
         "oduck": oduck,
-        "posts": posts,
         "santaoduck": santaoduck,
     }
     return render(request, "posts/main.html", context)
@@ -120,53 +120,27 @@ def deco(request):
 
 @login_required
 def create(request):
-    # # 나중에 아래코드 분석해보기
-    # post = get_object_or_404(Post, pk=pk)
-    # comment_form = CommentForm()
-    # context = {
-    #     "post": post,
-    #     "comment_form": comment_form,
-    # }
-    # return render(request, "posts/create.html", context)
     if request.user.is_authenticated:
-        posts = Post.objects.all()
-        comment = Comment.objects.all()
-        comment_message = comment.count()
-        comment_form = CommentForm()
-        context = {
-            "posts": posts,
-            "comment_message": comment_message,
-            "comment_form": comment_form,
-        }
-        return render(request, "posts/create.html", context)
-    # else일때의 처리도 해줄것 !
+        comments = Comment.objects.all()
+        comment_message = comments.count()
 
+        comment_form = CommentForm(request.POST)
 
-@login_required
-def new(request):
-    # new.html에서 input태그의 name을 받아옴
-    # 새로고침시 중복해서 작성되는 오류 발생
-    if request.method == "POST":
-        print("여기까지는 와")
-        comment_form = CommentForm(request.POST, request.FILES)
         if comment_form.is_valid():
-            post = comment_form.save(commit=False)
-            # post 객체에 user_id가 포함된 이용자의 user 정보를 넣는다.
-            # post.user = request.user
-            print("여기까지는 와")
-            # DB에 반영
-            post.save()
+            comment = comment_form.save(commit=False)
+            comment.user = request.user
             messages.success(request, "마음이 전달됐어요!")
-            return redirect(
-                "posts:main",
-            )
+            comment.save()
+            return redirect("posts:main")
     else:
         comment_form = CommentForm()
 
     context = {
+        "comments": comments,
+        "comment_message": comment_message,
         "comment_form": comment_form,
     }
-    return render(request, "posts/new.html", context)
+    return render(request, "posts/create.html", context)
 
 
 @login_required
@@ -227,18 +201,34 @@ def delete(request, pk):
 @login_required
 def comment_create(request, pk):
     if request.user.is_authenticated:
-        post = get_object_or_404(Post, pk=pk)
+        people = get_object_or_404(get_user_model(), pk=pk)
+        print(people)
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
-            comment.user = request.user
-            comment.post = post
+            print(f"{comment}입니다.")
+            comment.people.pk = people
             comment.save()
-        return redirect("posts:main", post.pk)
+        return redirect("posts:main", pk)
     else:
         messages.warning(request, "메세지를 보내기 위해서는 로그인이 필요합니다.")
         return redirect("accounts:login")
 
+def user_main(request, pk):
+  if request.user.is_authenticated:
+    user = get_object_or_404(get_user_model(), pk=pk)
+    comment = Comment.objects.get(pk=pk)
+    comment_form = CommentForm(request.POST)
+    if comment_form.is_valid():
+      comment_forms = comment_form.save(commit=False)
+      comment_forms.comment = comment
+      comment_forms.save()
+    return redirect("posts:main", pk)
+  else:
+    messages.warning(request, "마음을 전달하기 위해선 로그인이 필요합니다.")
+    return redirect("accounts:login")
+  
+  
 
 #  오류 페이지
 # def page_not_found(request, exception):

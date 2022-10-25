@@ -41,7 +41,8 @@ def detail(request, pk):
 
 
 def login(request):
-
+    if request.user.is_authenticated:
+        return redirect("posts:main")
     if request.method == "POST":
         # AuthenticationForm의 특징 ModelForm이 아님
         form = AuthenticationForm(request, data=request.POST)

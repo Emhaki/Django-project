@@ -17,14 +17,14 @@ app_name = "posts"
 urlpatterns = [
     path("", views.main, name="main"),
     path("create/", views.create, name="create"),
-    path("new/", views.new, name="new"),
     path("edit/<int:pk_>", views.edit, name="edit"),
     path("delete/<int:pk>", views.delete, name="delete"),
     path("detail/<int:pk_>", views.detail, name="detail"),
     path("update/<int:pk_>", views.update, name="update"),
     path("index/", views.index, name="index"),
     path("deco/", views.deco, name="decoration"),
-    path("create/comments/<int:pk>/", views.comment_create, name="comment_create"),
+    path("<int:pk>/comments/", views.comment_create, name="comment_create"),
+    path('<int:pk>/main/', views.user_main, name="user_main"),
 ]
 
 # handler404 = "my__site.page_not_found"
