@@ -305,3 +305,9 @@ class Comment(models.Model):
 
 5. 글작성 버튼을 누르면 https://rollingpaper.site/rolls/939520/editor 로 이동. 해당 롤링페이퍼 id값에 따라 작성되는 것 같음.
 ![](./video/%EB%A1%A4%EB%A7%81%ED%8E%98%EC%9D%B4%ED%8D%BC.png)
+
+## 👨‍💻 앞으로의 방향
+
+1. 처음에 intro 페이지에서 만들기 버튼을 누르게끔 설정(로그인 되어있는지 아닌지에 따라 분류)
+2. 로그인이 됐다면 create 페이지로 이동(+ nickname 설정) -> 만들기를 누르면 <int:tree_pk>로 설정 -> 해당 url로 사람들에게 공유하게끔 설정
+3. 해당페이지에서 글 작성을 누르면 <int:tree_pk>/post 페이지로 이동, 해당 tree.pk값에 따라 작성되도록 설정
