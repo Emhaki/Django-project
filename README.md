@@ -293,6 +293,8 @@ class Comment(models.Model):
 
 # 10/29
 
+## 🔎 구현한 기술
+
 1. 서비스 운영중인 롤링페이퍼 와 내가 만드려는 서비스의 구조가 비슷하다고 생각되어, 롤링페이퍼의 url 구조와 코드를 분석해보기 시작
 
 2. https://rollingpaper.site/ 에서 롤링페이퍼를 시작하려면 로그인을 필수적으로 해야함. 로그인을 하고 롤링페이퍼 만들기를 클릭하면 https://rollingpaper.site/create로 이동
