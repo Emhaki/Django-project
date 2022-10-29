@@ -1,12 +1,16 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import get_user_model
-from .models import People, Comment
+from .models import Tree, Comment
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import PeopleForm, CommentForm
+from .forms import CommentForm
 
 # Create your views here.
+def intro(request, user_pk):
+
+    return render(request, "posts/intro.html", user_pk)
+
 def base(request):
     # 작성된 메시지 갯수
     comment = Comment.objects.all()
@@ -36,7 +40,6 @@ def index(request):
     return render(request, "posts/index.html", context)
 
 
-@login_required
 def main(request):
 
     comment_form = CommentForm()
@@ -50,38 +53,38 @@ def main(request):
     # 상점에서 3개짜리를 샀을 때, 코인이 3개보다 많을 때
     # 3개보다 적을때 경고 알림을 주는 elif 문 삽입해야할듯
     if (
-        Post.objects.filter(coin=1).count() >= 0
+        Comment.objects.filter(coin=1).count() >= 0
         and request.method == "POST"
         and request.POST.get("price-3")
     ):
 
         for _ in range(3):
-            c = Post.objects.order_by("coin").values()[0]
+            c = Comment.objects.order_by("coin").values()[0]
 
             for k, v in c.items():
                 if k == "id":
                     id_key = c[k]
-            post = Post.objects.get(id=id_key)
-            post.coin = 2
-            post.save()
+            comment = Comment.objects.get(id=id_key)
+            comment.coin = 2
+            comment.save()
             santaoduck = True
 
     # 상점에서 1개짜리를 샀을 때, 코인이 1개보다 많을 때
     if (
-        Post.objects.filter(coin=1).count() >= 1
+        Comment.objects.filter(coin=1).count() >= 1
         and request.method == "POST"
         and request.POST.get("price-1")
     ):
 
-        c = Post.objects.order_by("-coin").values()[0]
+        c = Comment.objects.order_by("-coin").values()[0]
 
         for k, v in c.items():
             if k == "id":
                 id_key = c[k]
 
-            post = Post.objects.get(id=id_key)
-            post.coin = 1
-            post.save()
+            comment = Comment.objects.get(id=id_key)
+            comment.coin = 1
+            comment.save()
             oduck = True
 
     # 코인값이 1인 것들(남은돈)을 카운트
@@ -118,29 +121,49 @@ def deco(request):
     return render(request, "posts/decoration.html", context)
 
 
-@login_required
-def create(request):
-    if request.user.is_authenticated:
-        comments = Comment.objects.all()
-        comment_message = comments.count()
+def create(request, user_pk):
 
-        comment_form = CommentForm(request.POST)
+    user = get_object_or_404(get_user_model(), pk=user_pk)
+    tree = Tree.objects.get(user=user)
+    print(user)
+    print(request.user)
+    print(tree)
+    print('입니다')
+    
 
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.user = request.user
-            messages.success(request, "마음이 전달됐어요!")
-            comment.save()
-            return redirect("posts:main")
-    else:
-        comment_form = CommentForm()
+      # print(comment) Comment object (None)
+      # print(comment.user) emhaki
+    tree.user = request.user
+    tree.save()
+    messages.success(request, "트리가 생성됐어요!")
+    return redirect('posts:main')
+
+    return render(request, 'posts/create.html', context)
+    comments = Comment.objects.all()
+    comment_message = comments.count()
+    comment_form = CommentForm()
+
+    if request.method == "POST":
+      comment = comment_form.save(commit=False)
+      comment.user = request.user
+      messages.success(request, "마음이 전달됐어요!")
+      comment.save()
+    # comment_form = CommentForm(request.POST)
+
+    # if comment_form.is_valid():
+    #     comment = comment_form.save(commit=False)
+    #     comment.user = request.user
+    #     messages.success(request, "마음이 전달됐어요!")
+    #     comment.save()
+    #     return redirect("posts:main")
+    
 
     context = {
         "comments": comments,
         "comment_message": comment_message,
-        "comment_form": comment_form,
+        "comment_form":comment_form,
     }
-    return render(request, "posts/create.html", context)
+    return render(request, 'posts/create.html', context)
 
 
 @login_required
@@ -198,21 +221,26 @@ def delete(request, pk):
     return redirect("posts:index")
 
 
-@login_required
-def comment_create(request, pk):
-    if request.user.is_authenticated:
-        people = get_object_or_404(get_user_model(), pk=pk)
-        print(people)
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            print(f"{comment}입니다.")
-            comment.people.pk = people
-            comment.save()
-        return redirect("posts:main", pk)
-    else:
-        messages.warning(request, "메세지를 보내기 위해서는 로그인이 필요합니다.")
-        return redirect("accounts:login")
+
+def comment_create(request, user_pk):
+
+    user = get_object_or_404(get_user_model(), pk=user_pk)
+    if request.method == 'POST':
+      comment_form = CommentForm(request.POST)
+    
+      if comment_form.is_valid():
+          comment = comment_form.save(commit=False)
+
+          # if request.user != get_object_or_404(get_user_model(), username=username):
+          # 요청된 유저가 어나니머스 라면
+          print(comment)
+          print("입니다.")
+          comment.save()
+    
+    context = {
+      "user": user,
+    }
+    return render(request, 'posts/main.html', context)
 
 def user_main(request, pk):
   if request.user.is_authenticated:

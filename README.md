@@ -290,3 +290,16 @@ class Comment(models.Model):
 
 1. 서비스에 맞는 모델을 재정의하는데 있어서 어려움을 겪고있음. User를 중심으로 title, content를 쌓고 싶어서 User 클래스에서 모델을 정의해야되는지 알아봐야 할 것 같음
 2. 모델을 재정의하면서 DB 다루는데 익숙해지고 있고, People => Comment를 1:N으로 구현하려고 했으나, 그렇게 구현하면 데이터 적재하기 지저분할 것 같음
+
+# 10/29
+
+1. 서비스 운영중인 롤링페이퍼 와 내가 만드려는 서비스의 구조가 비슷하다고 생각되어, 롤링페이퍼의 url 구조와 코드를 분석해보기 시작
+
+2. https://rollingpaper.site/ 에서 롤링페이퍼를 시작하려면 로그인을 필수적으로 해야함. 로그인을 하고 롤링페이퍼 만들기를 클릭하면 https://rollingpaper.site/create로 이동
+
+3. 제목입력하고 테마 설정한 후 롤링페이퍼를 만들면 https://rollingpaper.site/rolls/939520 와 같이 롤링페이퍼가 만들어짐. 뒤에 있는 숫자는 롤링페이퍼의 id값으로 추정
+
+4. https://rollingpaper.site/rolls/939520 로 들어오면 회원가입이나 로그인 한 유저가 아니더라도 누구라도 글을 쓸 수 있음.
+
+5. 글작성 버튼을 누르면 https://rollingpaper.site/rolls/939520/editor 로 이동. 해당 롤링페이퍼 id값에 따라 작성되는 것 같음.
+![](./video/%EB%A1%A4%EB%A7%81%ED%8E%98%EC%9D%B4%ED%8D%BC.png)

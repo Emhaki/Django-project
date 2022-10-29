@@ -51,7 +51,7 @@ def login(request):
             # login 함수는 request, user 객체를 인자로 받음
             # user 객체는 form에서 인증된 유저 정보를 받을 수 있음
             auth_login(request, form.get_user())
-            return redirect("posts:main")
+            return render(request, "posts/main.html")
     else:
         form = AuthenticationForm()
 

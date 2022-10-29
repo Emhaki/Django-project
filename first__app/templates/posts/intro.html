@@ -1,0 +1,5 @@
+{% extends 'posts/base.html' %} {% load django_bootstrap5 %} {% block content %}
+설명
+
+<a href="{% url 'posts:main' user_pk %}">메인으로 가기</a>
+{% endblock %}

@@ -66,10 +66,10 @@
 </div>
 <a
   class="d-flex justify-content-center create-post"
-  href="{% url 'posts:create'%}"
+  href="{% url 'posts:create' user.pk %}"
 >
   <button class="button fs-5">
-    <div class="inner-border">트리 꾸며주기</div>
+    <div class="inner-border">트리 생성하기</div>
   </button>
 </a>
 
