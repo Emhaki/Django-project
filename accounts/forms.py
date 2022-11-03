@@ -10,5 +10,5 @@ class CustomUserCreationForm(UserCreationForm):
             "email",
         ]
         labels = {
-            "username": "닉네임",
+            "username": "아이디",
         }

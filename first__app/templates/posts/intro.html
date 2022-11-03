@@ -1,5 +1,12 @@
 {% extends 'posts/base.html' %} {% load django_bootstrap5 %} {% block content %}
-설명
 
-<a href="{% url 'posts:main' user_pk %}">메인으로 가기</a>
+<a href="{% url 'accounts:signup' %}">
+  <button>
+    트리 생성하러 가기
+  </button>
+</a>
+<div>
+  <span style="font-size: 14px; margin: 5px"> 이미 아이디가 있으신가요? </span>
+  <a href="{% url 'accounts:login' %}">로그인</a>
+</div>
 {% endblock %}

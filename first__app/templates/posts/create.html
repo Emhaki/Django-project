@@ -4,7 +4,15 @@
   < <span style="margin-left: 5px; font-size: 16px">홈으로</span></a
 > {% endcomment %}
 
-<h1>이명학의 방명록</h1>
+<div class="fs-4">{{ user.username }}의 트리 생성하기</div>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  {% bootstrap_form tree_form layout='inline'%}
+  <button type="submit" class="button fs-5">
+    <div class="inner-border">트리 생성</div>
+  </button>
+</form>
 
 
 

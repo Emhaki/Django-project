@@ -64,18 +64,12 @@
 <div>
   <div class="m-4">여백</div>
 </div>
-<a
-  class="d-flex justify-content-center create-post"
-  href="{% url 'posts:create' user.pk %}"
->
-  <button class="button fs-5">
-    <div class="inner-border">트리 만들기</div>
+
+
+<a href="{% url 'posts:user_tree_create' user.pk %}">
+  <button type="submit" class="button fs-5">
+    <div class="inner-border">마음 전달하기</div>
   </button>
 </a>
 
-{% comment %}
-<form action="{% url 'posts:comment_create' comment.pk %}" method="POST">
-  {% csrf_token %} {% bootstrap_form comment_form %}
-  <input type="submit" />
-</form>
-{% endcomment %} {% endblock %}
+{% endblock %}

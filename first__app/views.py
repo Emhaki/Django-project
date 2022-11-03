@@ -4,12 +4,12 @@ from django.contrib.auth import get_user_model
 from .models import Tree, Comment
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import CommentForm
+from .forms import CommentForm, TreeForm
 
 # Create your views here.
-def intro(request, user_pk):
+def intro(request):
 
-    return render(request, "posts/intro.html", user_pk)
+    return render(request, "posts/intro.html")
 
 def base(request):
     # 작성된 메시지 갯수
@@ -123,31 +123,20 @@ def deco(request):
 
 def create(request, user_pk):
 
-    user = get_object_or_404(get_user_model(), pk=user_pk)
-    tree = Tree.objects.get(user=user)
-    print(user)
-    print(request.user)
-    print(tree)
-    print('입니다')
-    
-
-      # print(comment) Comment object (None)
-      # print(comment.user) emhaki
-    tree.user = request.user
-    tree.save()
-    messages.success(request, "트리가 생성됐어요!")
-    return redirect('posts:main')
-
-    return render(request, 'posts/create.html', context)
     comments = Comment.objects.all()
     comment_message = comments.count()
-    comment_form = CommentForm()
 
     if request.method == "POST":
-      comment = comment_form.save(commit=False)
-      comment.user = request.user
-      messages.success(request, "마음이 전달됐어요!")
-      comment.save()
+      tree_form = TreeForm(request.POST)
+      if tree_form.is_valid():
+        tree = tree_form.save(commit=False)
+        tree.user = request.user
+        tree.save()
+        messages.success(request, "트리가 생성됐어요!")
+        return redirect("posts:user_tree", user_pk)
+    else:
+      tree_form = TreeForm()
+      
     # comment_form = CommentForm(request.POST)
 
     # if comment_form.is_valid():
@@ -161,9 +150,44 @@ def create(request, user_pk):
     context = {
         "comments": comments,
         "comment_message": comment_message,
-        "comment_form":comment_form,
+        "tree_form":tree_form,
     }
     return render(request, 'posts/create.html', context)
+
+# def tree(request):
+#   if request.method == 'POST':
+#     tree_form = TreeForm(request.POST)
+#     if tree_form.is_valid():
+#       tree = tree_form.save(commit=False)
+#       tree.user = request.user
+#       messages.success(request, "트리가 만들어졌어요!")
+#       tree.save()
+#       return redirect('posts:user_tree')
+
+def user_tree(request, user_pk):
+
+  return render(request, 'posts/user_tree.html')
+
+def user_tree_create(request, user_pk):
+
+  tree = get_object_or_404(Tree, pk=user_pk)
+  if request.method == "POST":
+    comment_form = CommentForm(request.POST)
+    if comment_form.is_valid():
+      comment = comment_form.save(commit=False)
+      comment.tree = tree
+      comment.user = request.user
+      # messages.success(request, "마음이 전달됐어요!")
+      comment.save()
+      return redirect('posts:user_tree', user_pk)
+  else:
+    comment_form = CommentForm()
+
+  context = {
+    "comment_form": comment_form,
+  }
+
+  return render(request, 'posts/user_tree_create.html', context)
 
 
 @login_required

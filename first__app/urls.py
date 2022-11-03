@@ -15,9 +15,11 @@ from . import views
 app_name = "posts"
 
 urlpatterns = [
-    path("intro/", views.intro, name="intro"),
+    path("", views.intro, name="intro"),
     path("main/", views.main, name="main"),
-    path("<int:user_pk>/create/", views.create, name="create"),
+    path("create/<user_pk>/", views.create, name="create"),
+    path('main/<int:user_pk>/', views.user_tree, name="user_tree"),
+    path('main/<int:user_pk>/create', views.user_tree_create, name="user_tree_create"),
     path("edit/<int:pk_>", views.edit, name="edit"),
     path("delete/<int:pk>", views.delete, name="delete"),
     path("detail/<int:pk_>", views.detail, name="detail"),

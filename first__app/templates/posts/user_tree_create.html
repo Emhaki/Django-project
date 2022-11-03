@@ -1,0 +1,14 @@
+{% extends 'posts/base.html' %}{% load django_bootstrap5 %} {% block content %}
+{% load static %}
+
+
+
+<form action="" method="POST">
+  {% csrf_token %} 
+  {% bootstrap_form comment_form layout='inline'%}
+  <button class="d-flex justify-content-center create-post">
+    마음 전달하기
+  </button>
+</form>
+
+{% endblock %}
